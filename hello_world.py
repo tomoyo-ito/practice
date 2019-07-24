@@ -32,7 +32,6 @@ class CyInterface:
         """
         Add initialization code here for the interface (likely very little)
         """
-
         # This prints the name of the of the function in the log
         print sys._getframe().f_code.co_name
         self.package_output_directory = '.'  # output folder, to be populated in the initialize function
@@ -73,23 +72,25 @@ class CyInterface:
         print sys._getframe().f_code.co_name
         eo = ExpandoObject()  # prepare return value
 
+　　def Open_exe(command, faile_name):
+    proc = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdout_data, stderr_data = proc.communicate()
+    print("download rc: {}\nstdout: {}\nstderr: {}".format(proc.returncode,
+        tdout_data.decode('utf-8'),
+        stderr_data.decode('utf-8')))
+
         # Start of package code
         try:
             # Open a file object in the location that we want to create the file.
             # In this case, the output directory of this execution
-            output_file = open(os.path.join(self.package_output_directory, "hello_world.txt"), "w+")
+            # output_file = open(os.path.join(self.package_output_directory, "hello_world.txt"), "w+")
+            Open_exe('ps aux', 'process-list.txt')
+
+            eo.status = 0  # success!
             # Write data to the file.
-            output_file.write("Hello World")
+            # output_file.write("Hello World")
             # Close the file object.
-            output_file.close()
-
-
-def Open_exe(command, faile_name):
-    proc = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    stdout_data, stderr_data = proc.communicate()
-    print("download rc: {}\nstdout: {}\nstderr: {}".format(proc.returncode,
-    tdout_data.decode('utf-8'),
-    stderr_data.decode('utf-8')))
+            # output_file.close()
 
         except Exception as e:
             eo.status = -1  # fail
