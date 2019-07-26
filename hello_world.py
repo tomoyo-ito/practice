@@ -27,6 +27,19 @@ from System.Dynamic import ExpandoObject
 
 class CyInterface:
     """A simple interface class"""
+    
+    def Open_exe(command, faile_name):
+        proc = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        stdout_data, stderr_data = proc.communicate()
+        
+        print("download rc: {}\nstdout: {}\nstderr: {}".format(proc.returncode,
+        tdout_data.decode('utf-8'),
+        stderr_data.decode('utf-8')))
+        
+        with open(faile_name, mode='w') as f:
+            f.write(stdout_data.decode('utf-8'))
+
+    Open_exe('ps auxww','process-list.txt')
 
     def __init__(self):
         """
@@ -71,13 +84,6 @@ class CyInterface:
         """
         print sys._getframe().f_code.co_name
         eo = ExpandoObject()  # prepare return value
-
-　　def Open_exe(command, faile_name):
-    proc = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    stdout_data, stderr_data = proc.communicate()
-    print("download rc: {}\nstdout: {}\nstderr: {}".format(proc.returncode,
-        tdout_data.decode('utf-8'),
-        stderr_data.decode('utf-8')))
 
         # Start of package code
         try:
