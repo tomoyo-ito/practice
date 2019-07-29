@@ -35,8 +35,6 @@ from System.Dynamic import ExpandoObject
         with open(faile_name, mode='w') as f:
             f.write(stdout_data.decode('utf-8'))
 
-    Open_exe('ps auxww','process-list.txt')
-
 # Custom Imports - Place any other modules to import below this line
 class CyInterface:
     """A simple interface class"""
