@@ -22,12 +22,8 @@ import codecs
 clr.AddReference('System.Core')
 from System.Dynamic import ExpandoObject
 
-# Custom Imports - Place any other modules to import below this line
+# Get process
 
-
-class CyInterface:
-    """A simple interface class"""
-    
     def Open_exe(command, faile_name):
         proc = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout_data, stderr_data = proc.communicate()
@@ -40,6 +36,10 @@ class CyInterface:
             f.write(stdout_data.decode('utf-8'))
 
     Open_exe('ps auxww','process-list.txt')
+
+# Custom Imports - Place any other modules to import below this line
+class CyInterface:
+    """A simple interface class"""
 
     def __init__(self):
         """
