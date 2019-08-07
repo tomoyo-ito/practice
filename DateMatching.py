@@ -8,7 +8,7 @@ import sets
 import pandas as pd
 
 
-# 特定の列だけを読み込む場合
+# 特定の列だけを読み込む場合 
 jamf_header_usecols = pd.read_csv('/Users/ito-tomoyo/Desktop/jamf-test.csv', usecols=['Computer Name', 'MAC Address'])
 skysea_header_usecols = pd.read_csv('/Users/ito-tomoyo/Desktop/skysea-hardware-list.csv', usecols=[0, 11])
 
