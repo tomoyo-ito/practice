@@ -12,17 +12,17 @@ import re
 df_jamf = pd.read_csv('/Users/ito-tomoyo/Desktop/jamf-test.csv', usecols=['Computer Name', 'MAC Address']) #jamf
 df_skysea = pd.read_csv('/Users/ito-tomoyo/Desktop/jamf-test2.csv', usecols=['Computer Name', 'MAC Address']) #skysea（未来的には）
 
+# カラムの名前を揃える関数を追加する
+# HogeHoge
+
 # Pandas の insin を使って差分があるところを確認する（isin は同じものが含まれている列はTrueを返し、違っていればFalseを返す）
 df_jamf['比較用の列'] = df_jamf[['Computer Name', 'MAC Address']].apply(lambda x: '{}_{}'.format(x[0], x[1]), axis=1)
 df_skysea['比較用の列'] = df_skysea[['Computer Name', 'MAC Address']].apply(lambda x: '{}_{}'.format(x[0], x[1]), axis=1)
 
-# カラムの名前を揃える関数を追加する
-# HogeHoge
-
 # 特定の列を比較する(header_usecols1にあって、header_usecols2にないList)
 df_diff = df_jamf[~df_jamf['比較用の列'].isin(df_skysea['比較用の列'])]['Computer Name']
 
-# その結果を出力する（同じ改装に）
+# その結果を出力する（同じ階層に）
 print(df_diff)
 
 
