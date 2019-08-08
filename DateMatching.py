@@ -4,21 +4,26 @@
 import csv
 import os
 import pprint
-import sets
 import pandas as pd
+import re
 
 
-# 特定の列だけを読み込む場合 
-jamf_header_usecols = pd.read_csv('/Users/ito-tomoyo/Desktop/jamf-test.csv', usecols=['Computer Name', 'MAC Address'])
-skysea_header_usecols = pd.read_csv('/Users/ito-tomoyo/Desktop/skysea-hardware-list.csv', usecols=[0, 11])
+# 特定の列だけを読み込む（読み込み先の指定、項目の指定は後々変更する。ただ、タプルの中のリストって要素変更できないみたい。iniに変更できない。）
+df_jamf = pd.read_csv('/Users/ito-tomoyo/Desktop/jamf-test.csv', usecols=['Computer Name', 'MAC Address']) #jamf
+df_skysea = pd.read_csv('/Users/ito-tomoyo/Desktop/jamf-test2.csv', usecols=['Computer Name', 'MAC Address']) #skysea（未来的には）
 
-# 読み込んだ列を結合する場合
-merge = pd.concat([jamf_header_usecols, skysea_header_usecols], axis=1)
-print(merge)
+# Pandas の insin を使って差分があるところを確認する（isin は同じものが含まれている列はTrueを返し、違っていればFalseを返す）
+df_jamf['比較用の列'] = df_jamf[['Computer Name', 'MAC Address']].apply(lambda x: '{}_{}'.format(x[0], x[1]), axis=1)
+df_skysea['比較用の列'] = df_skysea[['Computer Name', 'MAC Address']].apply(lambda x: '{}_{}'.format(x[0], x[1]), axis=1)
 
-# 特定の列を比較する
+# カラムの名前を揃える関数を追加する
+# HogeHoge
+
+# 特定の列を比較する(header_usecols1にあって、header_usecols2にないList)
+df_diff = df_jamf[~df_jamf['比較用の列'].isin(df_skysea['比較用の列'])]['Computer Name']
 
 # その結果を出力する（同じ改装に）
+print(df_diff)
 
 # 一応動く #
 #def make_lines_set(path):
@@ -39,6 +44,20 @@ print(merge)
 
 
 # 練習（殴り書き）# 
+
+#header_usecols2 = pd.read_csv('/Users/ito-tomoyo/Desktop/skysea-hardware-list.csv', usecols=['コンピューター名', 'MACアドレス 1']) #skysea 
+# 読み込んだ列を結合する場合
+# merge = pd.concat([header_usecols1, header_usecols2], axis=1)
+# merge.rename = pd.concat([jamf_header_usecols, header_usecols2], axis=1)
+# merge = jamf_header_usecols[~header_usecols2['Computer Name'].isin(skysea_header_usecols[2])]
+# print(merge)
+
+# 特定の列を比較する
+#def check(usecols):
+#    if re.match(jamf_header_usecols in skysea_header_usecols, usecols):
+#        print()
+#    else:
+#        print()
 
 #ret = skysea_header_usecols[~skysea_header_usecols.ID.isin(jamf_header_usecols.ID)]
 #ret.to_csv('merge.csv', index=None)
