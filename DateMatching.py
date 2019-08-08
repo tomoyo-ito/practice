@@ -25,7 +25,16 @@ df_diff = df_jamf[~df_jamf['比較用の列'].isin(df_skysea['比較用の列'])
 # その結果を出力する（同じ改装に）
 print(df_diff)
 
-# 一応動く #
+
+
+
+
+
+##################################################################
+# 下記はただのメモです
+##################################################################
+
+## 一応動く ##  
 #def make_lines_set(path):
 #    f = open(path, 'r')
 #    lines = f.readlines() # 1行ずつ読み込む
@@ -43,8 +52,8 @@ print(df_diff)
 #    print(result)
 
 
-# 練習（殴り書き）# 
 
+## 練習（殴り書き ##  
 #header_usecols2 = pd.read_csv('/Users/ito-tomoyo/Desktop/skysea-hardware-list.csv', usecols=['コンピューター名', 'MACアドレス 1']) #skysea 
 # 読み込んだ列を結合する場合
 # merge = pd.concat([header_usecols1, header_usecols2], axis=1)
