@@ -7,23 +7,41 @@ import pprint
 import pandas as pd
 import re
 
+#
+pd.set_option('display.max_rows', 1000)
 
 # 特定の列だけを読み込む（読み込み先の指定、項目の指定は後々変更する。ただ、タプルの中のリストって要素変更できないみたい。iniに変更できない。）
-df_jamf = pd.read_csv('/Users/ito-tomoyo/Desktop/jamf-test.csv', usecols=['Computer Name', 'MAC Address']) #jamf
-df_skysea = pd.read_csv('/Users/ito-tomoyo/Desktop/jamf-test2.csv', usecols=['Computer Name', 'MAC Address']) #skysea（未来的には）
+df_jamf = pd.read_csv('/Users/ito-tomoyo/Desktop/jamf-20190806.csv', usecols=['Computer Name', 'MAC Address']) #jamf
+df_jamf= df_jamf.replace(':', '-', regex = True)
+print(df_jamf)
+
+df_skysea = pd.read_csv('/Users/ito-tomoyo/Desktop/skysea.csv', usecols=['コンピューター名', 'MACアドレス 1']) #skysea
+df_skysea = df_skysea.rename(columns={'コンピューター名':'Computer Name', 'MACアドレス 1':'MAC Address'}) #skysea
+
+print(df_skysea)
 
 # カラムの名前を揃える関数を追加する
 # HogeHoge
+
+# 特定の列を比較する(jamfにあって、skyseaにないList)
+df_diff = df_jamf[~df_jamf['Computer Name'].isin(df_skysea['Computer Name'])]['Computer Name']
+print(df_diff)
+
+# 特定の列を比較する(skyseaにあって、jamfにないList)
+df_diff2 = df_skysea[~df_skysea['Computer Name'].isin(df_jamf['Computer Name'])]['Computer Name']
+print(df_diff2)
+
+exit
 
 # Pandas の insin を使って差分があるところを確認する（isin は同じものが含まれている列はTrueを返し、違っていればFalseを返す）
 df_jamf['比較用の列'] = df_jamf[['Computer Name', 'MAC Address']].apply(lambda x: '{}_{}'.format(x[0], x[1]), axis=1)
 df_skysea['比較用の列'] = df_skysea[['Computer Name', 'MAC Address']].apply(lambda x: '{}_{}'.format(x[0], x[1]), axis=1)
 
-# 特定の列を比較する(header_usecols1にあって、header_usecols2にないList)
-df_diff = df_jamf[~df_jamf['比較用の列'].isin(df_skysea['比較用の列'])]['Computer Name']
+# 特定の列を比較する(jamfにあって、skyseaにないList)
+df_diff = df_jamf[~df_jamf['比較用の列'].isin(df_skysea['比較用の列'])]
 
 # その結果を出力する（同じ階層に）
-print(df_diff)
+# print(df_diff)
 
 
 
