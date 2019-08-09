@@ -7,29 +7,30 @@ import pprint
 import pandas as pd
 import re
 
-#
+# Pandasのカラムの設定（全てのPandas関数に適応される）
 pd.set_option('display.max_rows', 1000)
 
-# 特定の列だけを読み込む（読み込み先の指定、項目の指定は後々変更する。ただ、タプルの中のリストって要素変更できないみたい。iniに変更できない。）
-df_jamf = pd.read_csv('/Users/ito-tomoyo/Desktop/jamf-20190806.csv', usecols=['Computer Name', 'MAC Address']) #jamf
-df_jamf= df_jamf.replace(':', '-', regex = True)
+# 特定の列だけを読み込む
+df_jamf = pd.read_csv('/Users/ito-tomoyo/Desktop/jamf-20190806.csv', usecols=['Computer Name', 'MAC Address'], index_col='Computer Name') #jamf
+# MACaddressの：を-に置換
+df_jamf = df_jamf.replace(':', '-', regex = True) #jamf
 print(df_jamf)
 
-df_skysea = pd.read_csv('/Users/ito-tomoyo/Desktop/skysea.csv', usecols=['コンピューター名', 'MACアドレス 1']) #skysea
-df_skysea = df_skysea.rename(columns={'コンピューター名':'Computer Name', 'MACアドレス 1':'MAC Address'}) #skysea
-
-print(df_skysea)
-
+# 特定の列だけを読み込む
+df_skysea = pd.read_csv('/Users/ito-tomoyo/Desktop/skysea.csv', usecols=['コンピューター名', 'MACアドレス 1'], index_col='コンピューター名') #skysea
 # カラムの名前を揃える関数を追加する
-# HogeHoge
+df_skysea = df_skysea.rename(columns={'コンピューター名':'Computer Name', 'MACアドレス 1':'MAC Address'}) #skysea
+print(df_skysea)
 
 # 特定の列を比較する(jamfにあって、skyseaにないList)
 df_diff = df_jamf[~df_jamf['Computer Name'].isin(df_skysea['Computer Name'])]['Computer Name']
-print(df_diff)
+# csvで出力
+df_diff.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out.csv')
 
 # 特定の列を比較する(skyseaにあって、jamfにないList)
 df_diff2 = df_skysea[~df_skysea['Computer Name'].isin(df_jamf['Computer Name'])]['Computer Name']
-print(df_diff2)
+# csvで出力
+df_diff2.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out2.csv')
 
 exit
 
