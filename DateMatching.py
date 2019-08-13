@@ -8,31 +8,66 @@ import pandas as pd
 import re
 
 # Pandasのカラムの設定（全てのPandas関数に適応される）
-pd.set_option('display.max_rows', 1000)
+pd.set_option('display.max_rows', 1500)
 
-# 特定の列だけを読み込む
-df_jamf = pd.read_csv('/Users/ito-tomoyo/Desktop/jamf-20190806.csv', usecols=['Computer Name', 'MAC Address'], index_col='Computer Name') #jamf
+# jamfの特定の列だけを読み込む
+df_jamf = pd.read_csv('/Users/ito-tomoyo/Desktop/jamf.csv', usecols=['Computer Name', 'MAC Address']) #jamf
 # MACaddressの：を-に置換
 df_jamf = df_jamf.replace(':', '-', regex = True) #jamf
-print(df_jamf)
+#print(df_jamf)
 
-# 特定の列だけを読み込む
-df_skysea = pd.read_csv('/Users/ito-tomoyo/Desktop/skysea.csv', usecols=['コンピューター名', 'MACアドレス 1'], index_col='コンピューター名') #skysea
-# カラムの名前を揃える関数を追加する
+# skyseaの特定の列だけを読み込む
+df_skysea = pd.read_csv('/Users/ito-tomoyo/Desktop/skysea.csv', usecols=['コンピューター名', 'MACアドレス 1']) #skysea
+# カラムの名前を変える関数を追加する
 df_skysea = df_skysea.rename(columns={'コンピューター名':'Computer Name', 'MACアドレス 1':'MAC Address'}) #skysea
-print(df_skysea)
+#print(df_skysea)
 
-# 特定の列を比較する(jamfにあって、skyseaにないList)
+# cylanceの特定の列だけを読み込む
+df_cylance = pd.read_csv('/Users/ito-tomoyo/Desktop/cylance.csv', usecols=['名前', 'MACアドレス']) #cylance
+# カラムの名前を変える関数を追加する
+df_cylance = df_skysea.rename(columns={'名前':'Computer Name', 'MACアドレス':'MAC Address'}) #cylance
+#print(df_cylance)
+
+# 特定の列を比較する(cylanceにあって、jamfにないList) cylanceはwinも範囲に入ってるので
+df_diff = df_cylance[~df_cylance['Computer Name'].isin(df_jamf['Computer Name'])]['Computer Name']
+# csvで出力
+df_diff.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_cylance_jamf_diff.csv', header = True)
+
+# 特定の列を比較する(cylanceにあって、skyseaにないList) ⭐存在しない（ちゃんと比較できなかったのかも）
+df_diff = df_cylance[~df_cylance['Computer Name'].isin(df_skysea['Computer Name'])]['Computer Name']
+# csvで出力
+df_diff.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_cylance_skesea_diff.csv', header = True)
+
+# 特定の列を比較する(jamfにあって、cylanceにないList) 特殊なComputer Name、退職した人？
+df_diff = df_jamf[~df_jamf['Computer Name'].isin(df_cylance['Computer Name'])]['Computer Name']
+# csvで出力
+df_diff.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_jamf_cylance_diff.csv', header = True)
+
+# 特定の列を比較する(jamfにあって、skyseaにないList) 特殊なComputer Name、退職した人？
 df_diff = df_jamf[~df_jamf['Computer Name'].isin(df_skysea['Computer Name'])]['Computer Name']
 # csvで出力
-df_diff.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out.csv')
+df_diff.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_jamf_skysea_diff.csv', header = True)
 
-# 特定の列を比較する(skyseaにあって、jamfにないList)
-df_diff2 = df_skysea[~df_skysea['Computer Name'].isin(df_jamf['Computer Name'])]['Computer Name']
+# 特定の列を比較する(skyseaにあって、cylanceにないList) ⭐存在しない （ちゃんと比較できなかったのかも）
+df_diff = df_skysea[~df_skysea['Computer Name'].isin(df_cylance['Computer Name'])]['Computer Name']
 # csvで出力
-df_diff2.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out2.csv')
+df_diff.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_skesea_cylance_diff.csv', header = True)
+
+# 特定の列を比較する(skyseaにあって、jamfにないList) skyseaにはwinあるから・・・
+df_diff = df_skysea[~df_skysea['Computer Name'].isin(df_jamf['Computer Name'])]['Computer Name']
+# csvで出力
+df_diff.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_skesea_jamf_diff.csv', header = True)
 
 exit
+# 特定の列を比較する(jamfにあって、skyseaにないList)
+#df_diff = df_jamf[~df_jamf['Computer Name'].isin(df_skysea['Computer Name'])]['Computer Name']
+# csvで出力
+#df_diff.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out.csv')
+
+# 特定の列を比較する(skyseaにあって、jamfにないList)
+#df_diff2 = df_skysea[~df_skysea['Computer Name'].isin(df_jamf['Computer Name'])]['Computer Name']
+# csvで出力
+#df_diff2.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out2.csv')
 
 # Pandas の insin を使って差分があるところを確認する（isin は同じものが含まれている列はTrueを返し、違っていればFalseを返す）
 df_jamf['比較用の列'] = df_jamf[['Computer Name', 'MAC Address']].apply(lambda x: '{}_{}'.format(x[0], x[1]), axis=1)
