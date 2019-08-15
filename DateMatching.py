@@ -6,6 +6,7 @@ import os
 import pprint
 import pandas as pd
 import re
+import numpy as np
 
 # Pandasのカラムの設定（全てのPandas関数に適応される）
 pd.set_option('display.max_rows', 1500)
