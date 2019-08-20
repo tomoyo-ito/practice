@@ -15,10 +15,10 @@ pd.set_option('display.max_rows', 10)
 df_jamf = pd.read_csv('/Users/ito-tomoyo/Desktop/jamf.csv', usecols=['Computer Name', 'MAC Address']) #jamf
 # MACaddressの：を-に置換
 df_jamf = df_jamf.replace(':', '-', regex = True) #jamf
+df_jamf = df_jamf.str.lower() #AttributeError: 'DataFrame' object has no attribute 'str'
+print(df_jamf)
 
-#df_jamf['Computer Name'] = df_jamf.ix[[1],['Computer Name']].str.lower()
-#print(df_jamf.lower())
-
+exit
 # skyseaの特定の列だけを読み込む
 df_skysea = pd.read_csv('/Users/ito-tomoyo/Desktop/skysea.csv', usecols=['コンピューター名', 'MACアドレス 1']) #skysea
 # カラムの名前を変える関数を追加する
