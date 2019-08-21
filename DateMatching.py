@@ -35,7 +35,7 @@ df_cylance = pd.read_csv('/Users/ito-tomoyo/Desktop/cylance.csv', usecols=['名�
 df_cylance = df_cylance.rename(columns={'名前':'Computer Name', 'MACアドレス':'MAC Address'}) #cylance
 # DataFrame は Valeをいじれないので、Seriesにして小文字に変更
 df_cylance_lower = df_cylance ['Computer Name'].str.lower() 
-# AttributeError: 'Series' object has no attribute 'join' 出たので、別の方法で結合する
+# AttributeError: 'Series' object has no attribute 'join' のエラーが出たので、別の方法で結合する
 left = df_cylance_lower 
 right = df_cylance 
 result = left.join(right)
