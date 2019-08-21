@@ -15,21 +15,33 @@ pd.set_option('display.max_rows', 10)
 df_jamf = pd.read_csv('/Users/ito-tomoyo/Desktop/jamf.csv', usecols=['Computer Name', 'MAC Address']) #jamf
 # MACaddressの：を-に置換
 df_jamf = df_jamf.replace(':', '-', regex = True) #jamf
-df_jamf = df_jamf.str.lower() #AttributeError: 'DataFrame' object has no attribute 'str'
-print(df_jamf)
+# DataFrame は Valeをいじれないので、Seriesにして小文字に変更
+df_jamf_lower = df_jamf['Computer Name'].str.lower() 
+#print(df_jamf_lower)
 
-exit
 # skyseaの特定の列だけを読み込む
 df_skysea = pd.read_csv('/Users/ito-tomoyo/Desktop/skysea.csv', usecols=['コンピューター名', 'MACアドレス 1']) #skysea
 # カラムの名前を変える関数を追加する
 df_skysea = df_skysea.rename(columns={'コンピューター名':'Computer Name', 'MACアドレス 1':'MAC Address'}) #skysea
-#print(df_skysea)
+# DataFrame は Valeをいじれないので、Seriesにして小文字に変更
+df_skysea_lower = df_skysea ['Computer Name'].str.lower() 
+#print(df_skysea_lower)
+
+
 
 # cylanceの特定の列だけを読み込む
 df_cylance = pd.read_csv('/Users/ito-tomoyo/Desktop/cylance.csv', usecols=['名前', 'MACアドレス']) #cylance
 # カラムの名前を変える関数を追加する
 df_cylance = df_cylance.rename(columns={'名前':'Computer Name', 'MACアドレス':'MAC Address'}) #cylance
-#print(df_cylance)
+# DataFrame は Valeをいじれないので、Seriesにして小文字に変更
+df_cylance_lower = df_cylance ['Computer Name'].str.lower() 
+# AttributeError: 'Series' object has no attribute 'join' 出たので、別の方法で結合する
+left = df_cylance_lower 
+right = df_cylance 
+result = left.join(right)
+print(result)
+
+exit
 
 # 特定の列を比較する(cylanceにあって、jamfにないList) cylanceはwinも範囲に入ってるので
 df_diff = df_cylance[~df_cylance['Computer Name'].isin(df_jamf['Computer Name'])]['Computer Name']
