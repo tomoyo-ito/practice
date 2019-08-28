@@ -66,12 +66,16 @@ result_cylance['cylance'] = 3
 
 # 2データ（jamf,skysea)の突合
 result_jamf_skysea = pd.merge(result_skysea, result_jamf, how='left', on='Computer Name')
+# sort
+result_jamf_skysea = result_jamf_skysea.sort_values('Computer Name')
 # print(result_jamf_skysea)
 # csvで出力
 result_jamf_skysea.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_result_skysea_jamf.csv', header = True)
 
 # 3データ（jamf&skysea,cylance)の突合
 result_all = pd.merge(result_jamf_skysea, result_cylance, how='left', on='Computer Name')
+# sort
+result_all  = result_all .sort_values('Computer Name')
 # print(result_all)
 # csvで出力
 result_all.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_result_all.csv', header = True)
