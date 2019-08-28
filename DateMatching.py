@@ -17,61 +17,97 @@ df_jamf = pd.read_csv('/Users/ito-tomoyo/Desktop/jamf.csv', usecols=['Computer N
 df_jamf = df_jamf.replace(':', '-', regex = True) #jamf
 # DataFrame は Valeをいじれないので、Seriesにして小文字に変更
 df_jamf_lower = df_jamf['Computer Name'].str.lower() 
-#print(df_jamf_lower)
+# DataFrameにする
+df_jamf_lower  = pd.DataFrame(df_jamf_lower.values)
+df_jamf_lower.columns = ['Computer Name']
+# DataFrameの結合
+left = df_jamf_lower 
+right = df_jamf['MAC Address']
+result_jamf= left.join(right)
+# jamf カラムを追加する
+result_jamf['jamf'] = 1
+#print(result_jamf)
+#df_jamf_merge = df_jamf.merge(pd.DataFrame(data = [df_jamf_lower.values] * len(df_jamf_lower), columns = df_jamf_lower.index, index=df_jamf.index), left_index=True, right_index=True)
 
 # skyseaの特定の列だけを読み込む
 df_skysea = pd.read_csv('/Users/ito-tomoyo/Desktop/skysea.csv', usecols=['コンピューター名', 'MACアドレス 1']) #skysea
 # カラムの名前を変える関数を追加する
-df_skysea = df_skysea.rename(columns={'コンピューター名':'Computer Name', 'MACアドレス 1':'MAC Address'}) #skysea
+df_skysea = df_skysea.rename(columns={'コンピューター名':'Computer Name', 'MACアドレス 1':'S_MAC Address'}) #skysea
 # DataFrame は Valeをいじれないので、Seriesにして小文字に変更
 df_skysea_lower = df_skysea ['Computer Name'].str.lower() 
-#print(df_skysea_lower)
-
+# DataFrameにする
+df_skysea_lower  = pd.DataFrame(df_skysea_lower.values)
+df_skysea_lower.columns = ['Computer Name']
+# DataFrameの結合
+left = df_skysea_lower
+right = df_skysea['S_MAC Address']
+result_skysea = left.join(right)
+# skysea カラムを追加する
+result_skysea['skysea'] = 2
+#print(result_skysea)
 
 
 # cylanceの特定の列だけを読み込む
 df_cylance = pd.read_csv('/Users/ito-tomoyo/Desktop/cylance.csv', usecols=['名前', 'MACアドレス']) #cylance
 # カラムの名前を変える関数を追加する
-df_cylance = df_cylance.rename(columns={'名前':'Computer Name', 'MACアドレス':'MAC Address'}) #cylance
+df_cylance = df_cylance.rename(columns={'名前':'Computer Name', 'MACアドレス':'C_MAC Address'}) #cylance
 # DataFrame は Valeをいじれないので、Seriesにして小文字に変更
 df_cylance_lower = df_cylance ['Computer Name'].str.lower() 
-# AttributeError: 'Series' object has no attribute 'join' のエラーが出たので、別の方法で結合する
-left = df_cylance_lower 
-right = df_cylance 
-result = left.join(right)
-print(result)
+# DataFrameにする
+df_cylance_lower  = pd.DataFrame(df_cylance_lower.values)
+df_cylance_lower.columns = ['Computer Name']
+# DataFrameの結合
+left = df_cylance_lower
+right = df_cylance['C_MAC Address']
+result_cylance = left.join(right)
+# cylance カラムを追加する
+result_cylance['cylance'] = 3
+#print(result_cylance)
+
+# 2データ（jamf,skysea)の突合
+result_jamf_skysea = pd.merge(result_skysea, result_jamf, how='left', on='Computer Name')
+# print(result_jamf_skysea)
+# csvで出力
+result_jamf_skysea.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_result_skysea_jamf.csv', header = True)
+
+# 3データ（jamf&skysea,cylance)の突合
+result_all = pd.merge(result_jamf_skysea, result_cylance, how='left', on='Computer Name')
+# print(result_all)
+# csvで出力
+result_all.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_result_all.csv', header = True)
+
 
 exit
 
 # 特定の列を比較する(cylanceにあって、jamfにないList) cylanceはwinも範囲に入ってるので
 df_diff = df_cylance[~df_cylance['Computer Name'].isin(df_jamf['Computer Name'])]['Computer Name']
 # csvで出力
-df_diff.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_cylance_jamf_diff.csv', header = True)
+#df_diff.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_cylance_jamf_diff.csv', header = True)
 
 # 特定の列を比較する(cylanceにあって、skyseaにないList) 
 df_diff = df_cylance[~df_cylance['Computer Name'].isin(df_skysea['Computer Name'])]['Computer Name']
 # csvで出力
-df_diff.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_cylance_skesea_diff.csv', header = True)
+#df_diff.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_cylance_skesea_diff.csv', header = True)
 
 # 特定の列を比較する(jamfにあって、cylanceにないList) 特殊なComputer Name、退職した人？
 df_diff = df_jamf[~df_jamf['Computer Name'].isin(df_cylance['Computer Name'])]['Computer Name']
 # csvで出力
-df_diff.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_jamf_cylance_diff.csv', header = True)
+#df_diff.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_jamf_cylance_diff.csv', header = True)
 
 # 特定の列を比較する(jamfにあって、skyseaにないList) 特殊なComputer Name、退職した人？
 df_diff = df_jamf[~df_jamf['Computer Name'].isin(df_skysea['Computer Name'])]['Computer Name']
 # csvで出力
-df_diff.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_jamf_skysea_diff.csv', header = True)
+#df_diff.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_jamf_skysea_diff.csv', header = True)
 
 # 特定の列を比較する(skyseaにあって、cylanceにないList) 
 df_diff = df_skysea[~df_skysea['Computer Name'].isin(df_cylance['Computer Name'])]['Computer Name']
 # csvで出力
-df_diff.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_skesea_cylance_diff.csv', header = True)
+#df_diff.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_skesea_cylance_diff.csv', header = True)
 
 # 特定の列を比較する(skyseaにあって、jamfにないList) skyseaにはwinあるから・・・
 df_diff = df_skysea[~df_skysea['Computer Name'].isin(df_jamf['Computer Name'])]['Computer Name']
 # csvで出力
-df_diff.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_skesea_jamf_diff.csv', header = True)
+# df_diff.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_skesea_jamf_diff.csv', header = True)
 
 exit
 
