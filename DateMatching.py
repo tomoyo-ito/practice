@@ -13,26 +13,28 @@ pd.set_option('display.max_rows', 10)
 
 # jamfの特定の列だけを読み込む
 df_jamf = pd.read_csv('/Users/ito-tomoyo/Desktop/jamf.csv', usecols=['Computer Name', 'MAC Address']) #jamf
+# カラムの名前を変える関数を追加する
+df_jamf = df_jamf.rename(columns={'Computer Name':'Computer Name', 'MAC Address':'J_MAC Address'}) #jamf
 # MACaddressの：を-に置換
 df_jamf = df_jamf.replace(':', '-', regex = True) #jamf
 # DataFrame は Valeをいじれないので、Seriesにして小文字に変更
 df_jamf_lower = df_jamf['Computer Name'].str.lower() 
 # DataFrameにする
-df_jamf_lower  = pd.DataFrame(df_jamf_lower.values)
+df_jamf_lower = pd.DataFrame(df_jamf_lower.values)
 df_jamf_lower.columns = ['Computer Name']
 # DataFrameの結合
 left = df_jamf_lower 
-right = df_jamf['MAC Address']
-result_jamf= left.join(right)
+right = df_jamf['J_MAC Address']
+result_jamf = left.join(right)
 # jamf カラムを追加する
 result_jamf['jamf'] = 1
-#print(result_jamf)
-#df_jamf_merge = df_jamf.merge(pd.DataFrame(data = [df_jamf_lower.values] * len(df_jamf_lower), columns = df_jamf_lower.index, index=df_jamf.index), left_index=True, right_index=True)
+# print(result_jamf)
+# df_jamf_merge = df_jamf.merge(pd.DataFrame(data = [df_jamf_lower.values] * len(df_jamf_lower), columns = df_jamf_lower.index, index=df_jamf.index), left_index=True, right_index=True)
 
 # skyseaの特定の列だけを読み込む
-df_skysea = pd.read_csv('/Users/ito-tomoyo/Desktop/skysea.csv', usecols=['コンピューター名', 'MACアドレス 1']) #skysea
+df_skysea = pd.read_csv('/Users/ito-tomoyo/Desktop/skysea.csv', usecols=['コンピューター名', 'MACアドレス 1', 'MACアドレス 2', 'MACアドレス 3', 'MACアドレス 4', 'MACアドレス 5', 'MACアドレス 6', 'MACアドレス 7', 'MACアドレス 8', 'MACアドレス 9']) #skysea
 # カラムの名前を変える関数を追加する
-df_skysea = df_skysea.rename(columns={'コンピューター名':'Computer Name', 'MACアドレス 1':'S_MAC Address'}) #skysea
+df_skysea = df_skysea.rename(columns={'コンピューター名':'Computer Name', 'MACアドレス 1':'S_MAC Address 1', 'MACアドレス 2':'S_MAC Address 2', 'MACアドレス 3':'S_MAC Address 3', 'MACアドレス 4':'S_MAC Address 4', 'MACアドレス 5':'S_MAC Address 5', 'MACアドレス 6':'S_MAC Address 6', 'MACアドレス 7':'S_MAC Address 7', 'MACアドレス 8':'S_MAC Address 8', 'MACアドレス 9':'S_MAC Address 9'}) #skysea
 # DataFrame は Valeをいじれないので、Seriesにして小文字に変更
 df_skysea_lower = df_skysea ['Computer Name'].str.lower() 
 # DataFrameにする
@@ -40,17 +42,20 @@ df_skysea_lower  = pd.DataFrame(df_skysea_lower.values)
 df_skysea_lower.columns = ['Computer Name']
 # DataFrameの結合
 left = df_skysea_lower
-right = df_skysea['S_MAC Address']
+right = df_skysea.drop('Computer Name', axis=1)
 result_skysea = left.join(right)
+# print(result_skysea)
 # skysea カラムを追加する
 result_skysea['skysea'] = 2
-#print(result_skysea)
-
+# print(result_skysea)
 
 # cylanceの特定の列だけを読み込む
 df_cylance = pd.read_csv('/Users/ito-tomoyo/Desktop/cylance.csv', usecols=['名前', 'MACアドレス']) #cylance
 # カラムの名前を変える関数を追加する
 df_cylance = df_cylance.rename(columns={'名前':'Computer Name', 'MACアドレス':'C_MAC Address'}) #cylance
+# MACaddressを「,」区切りで分割
+df_cylance_split = df_cylance ['C_MAC Address'] .str.split(',', expand=True) #cylance
+# print(df_cylance_split)
 # DataFrame は Valeをいじれないので、Seriesにして小文字に変更
 df_cylance_lower = df_cylance ['Computer Name'].str.lower() 
 # DataFrameにする
@@ -58,11 +63,11 @@ df_cylance_lower  = pd.DataFrame(df_cylance_lower.values)
 df_cylance_lower.columns = ['Computer Name']
 # DataFrameの結合
 left = df_cylance_lower
-right = df_cylance['C_MAC Address']
+right = df_cylance_split
 result_cylance = left.join(right)
 # cylance カラムを追加する
 result_cylance['cylance'] = 3
-#print(result_cylance)
+# print(result_cylance)
 
 # 2データ（jamf,skysea)の突合
 result_jamf_skysea = pd.merge(result_skysea, result_jamf, how='left', on='Computer Name')
