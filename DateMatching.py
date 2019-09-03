@@ -50,16 +50,16 @@ result_skysea['skysea'] = 2
 # print(result_skysea)
 
 # cylanceの特定の列だけを読み込む
-df_cylance = pd.read_csv('/Users/ito-tomoyo/Desktop/cylance.csv', usecols=['名前', 'MACアドレス']) #cylance
+df_cylance = pd.read_csv('/Users/ito-tomoyo/Desktop/cylance.csv', usecols=['名前', 'MACアドレス', 'ゾーン', '最終接続日']) #cylance
 # カラムの名前を変える関数を追加する
-df_cylance = df_cylance.rename(columns={'名前':'Computer Name', 'MACアドレス':'C_MAC Address'}) #cylance
+df_cylance = df_cylance.rename(columns={'名前':'Computer Name', 'MACアドレス':'C_MAC Address', 'ゾーン':'Zone', '最終接続日':'Last connect'}) #cylance
 # MACaddressを「,」区切りで分割
 df_cylance_split = df_cylance ['C_MAC Address'] .str.split(',', expand=True) #cylance
 # print(df_cylance_split)
 # DataFrame は Valeをいじれないので、Seriesにして小文字に変更
 df_cylance_lower = df_cylance ['Computer Name'].str.lower() 
 # DataFrameにする
-df_cylance_lower  = pd.DataFrame(df_cylance_lower.values)
+df_cylance_lower = pd.DataFrame(df_cylance_lower.values)
 df_cylance_lower.columns = ['Computer Name']
 # DataFrameの結合
 left = df_cylance_lower
@@ -67,7 +67,15 @@ right = df_cylance_split
 result_cylance = left.join(right)
 # cylance カラムを追加する
 result_cylance['cylance'] = 3
-# print(result_cylance)
+# Zoneカラムを追加する
+left = result_cylance
+right = df_cylance ['Zone']
+result_cylance = left.join(right)
+# Last connectカラムを追加する
+left = result_cylance
+right = df_cylance ['Last connect']
+result_cylance = left.join(right)
+ # print(result_cylance)
 
 # 2データ（jamf,skysea)の突合
 result_jamf_skysea = pd.merge(result_skysea, result_jamf, how='left', on='Computer Name')
@@ -81,7 +89,7 @@ result_jamf_skysea = pd.merge(result_skysea, result_jamf, how='left', on='Comput
 result_all = pd.merge(result_jamf_skysea, result_cylance, how='left', on='Computer Name')
 # sort
 result_all  = result_all .sort_values('Computer Name')
-# 'macbook pro・air'以外を抽出
+# 'macbook と freee を含まないもの抽出
 result_all  = result_all[~result_all['Computer Name'].str.contains('macbook')]
 result_all  = result_all[~result_all['Computer Name'].str.contains('freee')]
 # print(result_all)
