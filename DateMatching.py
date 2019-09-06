@@ -49,10 +49,12 @@ result_skysea = left.join(right)
 result_skysea['skysea'] = 2
 # print(result_skysea)
 
+
+
 # cylanceの特定の列だけを読み込む
-df_cylance = pd.read_csv('/Users/ito-tomoyo/Desktop/cylance.csv', usecols=['名前', 'MACアドレス', 'ゾーン', '最終接続日']) #cylance
+df_cylance = pd.read_csv('/Users/ito-tomoyo/Desktop/cylance.csv', usecols=['名前', 'MACアドレス', 'ゾーン', '最終接続日', '最終ログインユーザー']) #cylance
 # カラムの名前を変える関数を追加する
-df_cylance = df_cylance.rename(columns={'名前':'Computer Name', 'MACアドレス':'C_MAC Address', 'ゾーン':'Zone', '最終接続日':'Last connect'}) #cylance
+df_cylance = df_cylance.rename(columns={'名前':'Computer Name', 'MACアドレス':'C_MAC Address', 'ゾーン':'Zone', '最終接続日':'Last connect', '最終ログインユーザー':'Last login user'}) #cylance
 # MACaddressを「,」区切りで分割
 df_cylance_split = df_cylance ['C_MAC Address'] .str.split(',', expand=True) #cylance
 # print(df_cylance_split)
@@ -75,7 +77,59 @@ result_cylance = left.join(right)
 left = result_cylance
 right = df_cylance ['Last connect']
 result_cylance = left.join(right)
+# Last userカラムを追加する
+left = result_cylance
+right = df_cylance ['Last login user']
+result_cylance = left.join(right)
  # print(result_cylance)
+
+
+
+# staff listの特定の列を読み込む
+df_stafflist = pd.read_csv('/Users/ito-tomoyo/Desktop/stafflist.csv', header=1, usecols=['Name', '部署']) #staff list
+# カラムの名前を変える関数を追加する
+df_stafflist = df_stafflist.rename(columns={'Name':'Computer Name', '部署':'Department'}) #staff list
+# print(type(df_stafflist))
+# スペース区切りで列を分割する
+df_stafflist_split  = df_stafflist['Computer Name'].str.split('\s', expand=True)
+# print(type(df_stafflist))
+# カラムの名前を変える関数を追加する
+# df_stafflist = df_stafflist.rename(columns={0:'Name3', 2:'Name1'}) #staff list
+# カラムの順序を指定する(最初の：は「すべての行を取る」を意味し、:: – 1は列を逆方向に進むことを意味)
+# #df_stafflist = df_stafflist.iloc[:, ::-1]
+# 列を追加する
+# df_stafflist[2] = '-' 
+# 並び順の指定
+# df_stafflist = df_stafflist.iloc[:,[1, 2, 0]]
+df_stafflist_split = (df_stafflist_split[1].str.cat(df_stafflist_split[0], sep='-'))
+# データのタイプ確認する
+# print(type(df_stafflist))
+# 小文字にする
+df_stafflist_lower = df_stafflist_split.str.lower() 
+# DataFrameにする（ここ理屈わかってない⭐️）
+df_stafflist_lower = pd.DataFrame(df_stafflist_lower.values)
+# 列名の指定
+df_stafflist_lower.columns = ['Computer Name']
+# 'Department'カラムの追加
+left = df_stafflist_lower
+right = df_stafflist ['Department']
+result_df_stafflist = left.join(right)
+# csvで出力
+result_df_stafflist.to_csv('/Users/ito-tomoyo/Desktop/test.csv', header = True)
+
+
+# print(df_stafflist)
+# ０と1の列を入れ替える
+# df_stafflist_lower = df_stafflist_lower.str.split('\s', expand=True)
+# スペースを-に変更する
+# df_stafflist = df_stafflist.replace('\s', '-', regex = True) #staff list
+# '-'区切りで前後入れ替える
+# DataFrameにする
+# df_stafflist_lower = pd.DataFrame(df_stafflist_lower.values)
+# df_stafflist_lower.columns = ['Name']
+
+
+
 
 # 2データ（jamf,skysea)の突合
 result_jamf_skysea = pd.merge(result_skysea, result_jamf, how='left', on='Computer Name')
@@ -86,13 +140,23 @@ result_jamf_skysea = pd.merge(result_skysea, result_jamf, how='left', on='Comput
 # result_jamf_skysea.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_result_skysea_jamf.csv', header = True)
 
 # 3データ（jamf&skysea,cylance)の突合
-result_all = pd.merge(result_jamf_skysea, result_cylance, how='left', on='Computer Name')
+result_3 = pd.merge(result_jamf_skysea, result_cylance, how='left', on='Computer Name')
 # sort
-result_all  = result_all .sort_values('Computer Name')
+result_3  = result_3 .sort_values('Computer Name')
+# 'macbook と freee を含まないもの抽出
+result_3  = result_3[~result_3['Computer Name'].str.contains('macbook')]
+result_3  = result_3[~result_3['Computer Name'].str.contains('freee')]
+# print(result_3)
+
+# 4データ（jamf,skysea & cylance + 従業員情報)の突合
+result_all = pd.merge(result_3, result_df_stafflist, how='left', on='Computer Name')
+# sort
+result_all  = result_all.sort_values('Computer Name')
 # 'macbook と freee を含まないもの抽出
 result_all  = result_all[~result_all['Computer Name'].str.contains('macbook')]
 result_all  = result_all[~result_all['Computer Name'].str.contains('freee')]
 # print(result_all)
+
 # csvで出力
 result_all.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_result_all.csv', header = True)
 
