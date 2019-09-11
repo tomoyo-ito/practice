@@ -11,6 +11,10 @@ import numpy as np
 # Pandasのカラムの設定（全てのPandas関数に適応される）
 pd.set_option('display.max_rows', 10)
 
+######################
+# データの読み込み＆整形
+######################
+
 # jamfの特定の列だけを読み込む
 df_jamf = pd.read_csv('/Users/ito-tomoyo/Desktop/jamf.csv', usecols=['Computer Name', 'MAC Address']) #jamf
 # カラムの名前を変える関数を追加する
@@ -28,8 +32,6 @@ right = df_jamf['J_MAC Address']
 result_jamf = left.join(right)
 # jamf カラムを追加する
 result_jamf['jamf'] = 1
-# print(result_jamf)
-# df_jamf_merge = df_jamf.merge(pd.DataFrame(data = [df_jamf_lower.values] * len(df_jamf_lower), columns = df_jamf_lower.index, index=df_jamf.index), left_index=True, right_index=True)
 
 # skyseaの特定の列だけを読み込む
 df_skysea = pd.read_csv('/Users/ito-tomoyo/Desktop/skysea.csv', usecols=['コンピューター名', 'MACアドレス 1', 'MACアドレス 2', 'MACアドレス 3', 'MACアドレス 4', 'MACアドレス 5', 'MACアドレス 6', 'MACアドレス 7', 'MACアドレス 8', 'MACアドレス 9']) #skysea
@@ -47,9 +49,6 @@ result_skysea = left.join(right)
 # print(result_skysea)
 # skysea カラムを追加する
 result_skysea['skysea'] = 2
-# print(result_skysea)
-
-
 
 # cylanceの特定の列だけを読み込む
 df_cylance = pd.read_csv('/Users/ito-tomoyo/Desktop/cylance.csv', usecols=['名前', 'MACアドレス', 'ゾーン', '最終接続日', '最終ログインユーザー']) #cylance
@@ -81,29 +80,15 @@ result_cylance = left.join(right)
 left = result_cylance
 right = df_cylance ['Last login user']
 result_cylance = left.join(right)
- # print(result_cylance)
-
-
 
 # staff listの特定の列を読み込む
 df_stafflist = pd.read_csv('/Users/ito-tomoyo/Desktop/stafflist.csv', header=1, usecols=['Name', '部署']) #staff list
 # カラムの名前を変える関数を追加する
 df_stafflist = df_stafflist.rename(columns={'Name':'Computer Name', '部署':'Department'}) #staff list
-# print(type(df_stafflist))
 # スペース区切りで列を分割する
 df_stafflist_split  = df_stafflist['Computer Name'].str.split('\s', expand=True)
-# print(type(df_stafflist))
-# カラムの名前を変える関数を追加する
-# df_stafflist = df_stafflist.rename(columns={0:'Name3', 2:'Name1'}) #staff list
-# カラムの順序を指定する(最初の：は「すべての行を取る」を意味し、:: – 1は列を逆方向に進むことを意味)
-# #df_stafflist = df_stafflist.iloc[:, ::-1]
-# 列を追加する
-# df_stafflist[2] = '-' 
-# 並び順の指定
-# df_stafflist = df_stafflist.iloc[:,[1, 2, 0]]
+# catを使って列を一つに
 df_stafflist_split = (df_stafflist_split[1].str.cat(df_stafflist_split[0], sep='-'))
-# データのタイプ確認する
-# print(type(df_stafflist))
 # 小文字にする
 df_stafflist_lower = df_stafflist_split.str.lower() 
 # DataFrameにする（ここ理屈わかってない⭐️）
@@ -113,31 +98,33 @@ df_stafflist_lower.columns = ['Computer Name']
 # 'Department'カラムの追加
 left = df_stafflist_lower
 right = df_stafflist ['Department']
-result_df_stafflist = left.join(right)
+result_stafflist = left.join(right)
 # csvで出力
-result_df_stafflist.to_csv('/Users/ito-tomoyo/Desktop/test.csv', header = True)
+result_stafflist.to_csv('/Users/ito-tomoyo/Desktop/test.csv', header = True)
 
 
-# print(df_stafflist)
-# ０と1の列を入れ替える
-# df_stafflist_lower = df_stafflist_lower.str.split('\s', expand=True)
-# スペースを-に変更する
-# df_stafflist = df_stafflist.replace('\s', '-', regex = True) #staff list
-# '-'区切りで前後入れ替える
-# DataFrameにする
-# df_stafflist_lower = pd.DataFrame(df_stafflist_lower.values)
-# df_stafflist_lower.columns = ['Name']
+######################
+# データの突合
+######################
 
+# skysea入ってないList
+not_containining_jskysea = pd.merge(result_stafflist, result_skysea, how='left', on='Computer Name')
+# sort
+not_containining_jskysea  = not_containining_jskysea.sort_values('Computer Name')
+# csvで出力
+not_containining_jskysea.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_not_containining_skysea.csv', header = True)
 
+# jamf入ってないリスト(名簿とCylance突合したものに,Jamfを突合させた)
+result_stafflist_cylance = pd.merge(result_stafflist, result_cylance, how='left', on='Computer Name')
+not_containining_jamf = pd.merge(result_stafflist_cylance, result_jamf, how='left', on='Computer Name')
+# sort
+not_containining_jamf  = not_containining_jamf.sort_values('Computer Name')
+# csvで出力
+not_containining_jamf.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_not_containining_jamf.csv', header = True)
 
-
+exit
 # 2データ（jamf,skysea)の突合
 result_jamf_skysea = pd.merge(result_skysea, result_jamf, how='left', on='Computer Name')
-# sort
-# result_jamf_skysea = result_jamf_skysea.sort_values('Computer Name')
-# print(result_jamf_skysea)
-# csvで出力
-# result_jamf_skysea.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_result_skysea_jamf.csv', header = True)
 
 # 3データ（jamf&skysea,cylance)の突合
 result_3 = pd.merge(result_jamf_skysea, result_cylance, how='left', on='Computer Name')
@@ -146,140 +133,16 @@ result_3  = result_3 .sort_values('Computer Name')
 # 'macbook と freee を含まないもの抽出
 result_3  = result_3[~result_3['Computer Name'].str.contains('macbook')]
 result_3  = result_3[~result_3['Computer Name'].str.contains('freee')]
-# print(result_3)
+# csvで出力
+result_3.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_3result_all.csv', header = True)
 
-# 4データ（jamf,skysea & cylance + 従業員情報)の突合
-result_all = pd.merge(result_3, result_df_stafflist, how='left', on='Computer Name')
+# 4データ（jamf,skysea & cylance + 名簿)の突合
+result_all = pd.merge(result_3, result_stafflist, how='left', on='Computer Name')
 # sort
 result_all  = result_all.sort_values('Computer Name')
-# 'macbook と freee を含まないもの抽出
+# 'macbook と freee を含まないもの抽出（ここ理屈わかってない（~）⭐️）
 result_all  = result_all[~result_all['Computer Name'].str.contains('macbook')]
 result_all  = result_all[~result_all['Computer Name'].str.contains('freee')]
-# print(result_all)
-
 # csvで出力
-result_all.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_result_all.csv', header = True)
+result_all.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_4result_all.csv', header = True)
 
-
-exit
-
-# 特定の列を比較する(cylanceにあって、jamfにないList) cylanceはwinも範囲に入ってるので
-df_diff = df_cylance[~df_cylance['Computer Name'].isin(df_jamf['Computer Name'])]['Computer Name']
-# csvで出力
-#df_diff.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_cylance_jamf_diff.csv', header = True)
-
-# 特定の列を比較する(cylanceにあって、skyseaにないList) 
-df_diff = df_cylance[~df_cylance['Computer Name'].isin(df_skysea['Computer Name'])]['Computer Name']
-# csvで出力
-#df_diff.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_cylance_skesea_diff.csv', header = True)
-
-# 特定の列を比較する(jamfにあって、cylanceにないList) 特殊なComputer Name、退職した人？
-df_diff = df_jamf[~df_jamf['Computer Name'].isin(df_cylance['Computer Name'])]['Computer Name']
-# csvで出力
-#df_diff.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_jamf_cylance_diff.csv', header = True)
-
-# 特定の列を比較する(jamfにあって、skyseaにないList) 特殊なComputer Name、退職した人？
-df_diff = df_jamf[~df_jamf['Computer Name'].isin(df_skysea['Computer Name'])]['Computer Name']
-# csvで出力
-#df_diff.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_jamf_skysea_diff.csv', header = True)
-
-# 特定の列を比較する(skyseaにあって、cylanceにないList) 
-df_diff = df_skysea[~df_skysea['Computer Name'].isin(df_cylance['Computer Name'])]['Computer Name']
-# csvで出力
-#df_diff.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_skesea_cylance_diff.csv', header = True)
-
-# 特定の列を比較する(skyseaにあって、jamfにないList) skyseaにはwinあるから・・・
-df_diff = df_skysea[~df_skysea['Computer Name'].isin(df_jamf['Computer Name'])]['Computer Name']
-# csvで出力
-# df_diff.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_skesea_jamf_diff.csv', header = True)
-
-exit
-
-
-
-
-
-
-
-
-##################################################################
-# 下記はただのメモです
-##################################################################
-
-
-# 特定の列を比較する(jamfにあって、skyseaにないList)
-#df_diff = df_jamf[~df_jamf['Computer Name'].isin(df_skysea['Computer Name'])]['Computer Name']
-# csvで出力
-#df_diff.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out.csv')
-
-# 特定の列を比較する(skyseaにあって、jamfにないList)
-#df_diff2 = df_skysea[~df_skysea['Computer Name'].isin(df_jamf['Computer Name'])]['Computer Name']
-# csvで出力
-#df_diff2.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out2.csv')
-
-# Pandas の insin を使って差分があるところを確認する（isin は同じものが含まれている列はTrueを返し、違っていればFalseを返す）
-#df_jamf['比較用の列'] = df_jamf[['Computer Name', 'MAC Address']].apply(lambda x: '{}_{}'.format(x[0], x[1]), axis=1)
-#df_skysea['比較用の列'] = df_skysea[['Computer Name', 'MAC Address']].apply(lambda x: '{}_{}'.format(x[0], x[1]), axis=1)
-
-# 特定の列を比較する(jamfにあって、skyseaにないList)
-#df_diff = df_jamf[~df_jamf['比較用の列'].isin(df_skysea['比較用の列'])]
-
-# その結果を出力する（同じ階層に）
-# print(df_diff)
-
-
-
-## 一応動く ##  
-#def make_lines_set(path):
-#    f = open(path, 'r')
-#    lines = f.readlines() # 1行ずつ読み込む
-#    sets = set(lines) # set型にすると重複がなくなる
-#    f.close()
-#    return sets
-
-# 読み込みたいファイルを指定する
-#jamf = make_lines_set('/Users/ito-tomoyo/Desktop/jamf-test.csv')                      
-#skysea = make_lines_set('/Users/ito-tomoyo/Desktop/skysea-hardware-list.csv')
- 
-# jamf-test.csv にのみ存在する行を出力したい
-#results = jamf.difference(skysea)
-#for result in results:
-#    print(result)
-
-
-
-## 練習（殴り書き ##  
-#header_usecols2 = pd.read_csv('/Users/ito-tomoyo/Desktop/skysea-hardware-list.csv', usecols=['コンピューター名', 'MACアドレス 1']) #skysea 
-# 読み込んだ列を結合する場合
-# merge = pd.concat([header_usecols1, header_usecols2], axis=1)
-# merge.rename = pd.concat([jamf_header_usecols, header_usecols2], axis=1)
-# merge = jamf_header_usecols[~header_usecols2['Computer Name'].isin(skysea_header_usecols[2])]
-# print(merge)
-
-# 特定の列を比較する
-#def check(usecols):
-#    if re.match(jamf_header_usecols in skysea_header_usecols, usecols):
-#        print()
-#    else:
-#        print()
-
-#ret = skysea_header_usecols[~skysea_header_usecols.ID.isin(jamf_header_usecols.ID)]
-#ret.to_csv('merge.csv', index=None)
-#print(ret)
-
-
-#with open('/Users/ito-tomoyo/Desktop/jamf-test.csv') as f:
-#    reader = csv.reader(f, delimiter=' ')
-#    l = [row for row in reader]
-#print(l)
-
-
-# csvデータを読み込み用で開く
-# csv_file = open('/Users/ito-tomoyo/Desktop/jamf-test.csv')
-# リスト形式
-# f = csv.reader(csv_file, delimiter=",", doublequote=True, lineterminator="\r\n", quotechar='"', skipinitialspace=True)
-#辞書形式
-# f = csv.DictReader(csv_file, delimiter=",", doublequote=True, lineterminator="\r\n", quotechar='"', skipinitialspace=True)
-
-# print(csv_file)
-# csv_file = os.path.abspath("jamf-test.csv")
