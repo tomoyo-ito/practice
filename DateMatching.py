@@ -7,9 +7,10 @@ import pprint
 import pandas as pd
 import re
 import numpy as np
+import sys
 
 # Pandasのカラムの設定（全てのPandas関数に適応される）
-pd.set_option('display.max_rows', 10)
+pd.set_option('display.max_rows', 1000)
 
 ######################
 # データの読み込み＆整形
@@ -33,22 +34,52 @@ result_jamf = left.join(right)
 # jamf カラムを追加する
 result_jamf['jamf'] = 1
 
+
+######################
+# skysea Macアドレスあり
+######################
 # skyseaの特定の列だけを読み込む
-df_skysea = pd.read_csv('/Users/ito-tomoyo/Desktop/skysea.csv', usecols=['コンピューター名', 'MACアドレス 1', 'MACアドレス 2', 'MACアドレス 3', 'MACアドレス 4', 'MACアドレス 5', 'MACアドレス 6', 'MACアドレス 7', 'MACアドレス 8', 'MACアドレス 9']) #skysea
+# df_skysea = pd.read_csv('/Users/ito-tomoyo/Desktop/skysea.csv', usecols=['ログオンユーザー', 'MACアドレス 1', 'MACアドレス 2', 'MACアドレス 3', 'MACアドレス 4', 'MACアドレス 5', 'MACアドレス 6', 'MACアドレス 7', 'MACアドレス 8', 'MACアドレス 9']) #skysea
 # カラムの名前を変える関数を追加する
-df_skysea = df_skysea.rename(columns={'コンピューター名':'Computer Name', 'MACアドレス 1':'S_MAC Address 1', 'MACアドレス 2':'S_MAC Address 2', 'MACアドレス 3':'S_MAC Address 3', 'MACアドレス 4':'S_MAC Address 4', 'MACアドレス 5':'S_MAC Address 5', 'MACアドレス 6':'S_MAC Address 6', 'MACアドレス 7':'S_MAC Address 7', 'MACアドレス 8':'S_MAC Address 8', 'MACアドレス 9':'S_MAC Address 9'}) #skysea
+# df_skysea = df_skysea.rename(columns={'ログオンユーザー':'Computer Name', 'MACアドレス 1':'S_MAC Address 1', 'MACアドレス 2':'S_MAC Address 2', 'MACアドレス 3':'S_MAC Address 3', 'MACアドレス 4':'S_MAC Address 4', 'MACアドレス 5':'S_MAC Address 5', 'MACアドレス 6':'S_MAC Address 6', 'MACアドレス 7':'S_MAC Address 7', 'MACアドレス 8':'S_MAC Address 8', 'MACアドレス 9':'S_MAC Address 9'}) #skysea
+# DataFrame は Valeをいじれないので、Seriesにして小文字に変更
+# df_skysea_lower = df_skysea ['Computer Name'].str.lower() 
+# DataFrameにする
+# df_skysea_lower  = pd.DataFrame(df_skysea_lower.values)
+# df_skysea_lower.columns = ['Computer Name']
+# 数字、（）、ハイフンを削除する
+# df_skysea_lower = df_skysea_lower.str.replace('\-\d$', '') 
+# df_skysea_lower = df_skysea_lower.str.replace(' \(\d\)', '') 
+# DataFrameの結合
+# left = df_skysea_lower
+# right = df_skysea.drop('Computer Name', axis=1)
+# result_skysea = left.join(right)
+# skysea カラムを追加する
+# result_skysea['skysea'] = 2
+# print(result_skysea)
+
+######################
+# skysea Macアドレスなし
+######################
+# skyseaの特定の列だけを読み込む
+df_skysea = pd.read_csv('/Users/ito-tomoyo/Desktop/skysea.csv', usecols=['ログオンユーザー']) #skysea
+# カラムの名前を変える関数を追加する
+df_skysea = df_skysea.rename(columns={'ログオンユーザー':'Computer Name'}) #skysea
 # DataFrame は Valeをいじれないので、Seriesにして小文字に変更
 df_skysea_lower = df_skysea ['Computer Name'].str.lower() 
-# DataFrameにする
-df_skysea_lower  = pd.DataFrame(df_skysea_lower.values)
-df_skysea_lower.columns = ['Computer Name']
-# DataFrameの結合
-left = df_skysea_lower
-right = df_skysea.drop('Computer Name', axis=1)
-result_skysea = left.join(right)
-# print(result_skysea)
-# skysea カラムを追加する
+# 数字、（）、ハイフンを削除する
+df_skysea_lower = df_skysea_lower.str.replace('\-\d$', '') 
+df_skysea_lower = df_skysea_lower.str.replace(' \(\d\)', '') 
+#df_skysea_lower = df_skysea_lower.str.replace(')', '')
+#df_skysea_lower = df_skysea_lower.str.replace('¥-$', '') 
+## DataFrameにする
+result_skysea  = pd.DataFrame(df_skysea_lower.values)
+result_skysea.columns = ['Computer Name']
+#  skysea カラムを追加する
 result_skysea['skysea'] = 2
+# print(result_skysea)
+# sys.exit()
+
 
 # cylanceの特定の列だけを読み込む
 df_cylance = pd.read_csv('/Users/ito-tomoyo/Desktop/cylance.csv', usecols=['名前', 'MACアドレス', 'ゾーン', '最終接続日', '最終ログインユーザー']) #cylance
@@ -80,6 +111,8 @@ result_cylance = left.join(right)
 left = result_cylance
 right = df_cylance ['Last login user']
 result_cylance = left.join(right)
+# csvで出力
+# result_cylance esult_stafflist.to_csv('/Users/ito-tomoyo/Desktop/result_cylance.csv', header = True)
 
 # staff listの特定の列を読み込む
 df_stafflist = pd.read_csv('/Users/ito-tomoyo/Desktop/stafflist.csv', header=1, usecols=['Name', '部署']) #staff list
@@ -99,8 +132,9 @@ df_stafflist_lower.columns = ['Computer Name']
 left = df_stafflist_lower
 right = df_stafflist ['Department']
 result_stafflist = left.join(right)
+# print(result_stafflist)
 # csvで出力
-result_stafflist.to_csv('/Users/ito-tomoyo/Desktop/test.csv', header = True)
+# result_stafflist.to_csv('/Users/ito-tomoyo/Desktop/stafflist.csv', header = True)
 
 
 ######################
@@ -108,21 +142,22 @@ result_stafflist.to_csv('/Users/ito-tomoyo/Desktop/test.csv', header = True)
 ######################
 
 # skysea入ってないList
-not_containining_jskysea = pd.merge(result_stafflist, result_skysea, how='left', on='Computer Name')
+not_containing_skysea = pd.merge(result_stafflist, result_skysea, how='left', on='Computer Name')
+print(not_containing_skysea)
 # sort
-not_containining_jskysea  = not_containining_jskysea.sort_values('Computer Name')
+not_containing_skysea  = not_containing_skysea.sort_values('Computer Name')
 # csvで出力
-not_containining_jskysea.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_not_containining_skysea.csv', header = True)
+not_containing_skysea.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_not_containing_skysea.csv', header = True)
 
 # jamf入ってないリスト(名簿とCylance突合したものに,Jamfを突合させた)
 result_stafflist_cylance = pd.merge(result_stafflist, result_cylance, how='left', on='Computer Name')
-not_containining_jamf = pd.merge(result_stafflist_cylance, result_jamf, how='left', on='Computer Name')
+not_containing_jamf = pd.merge(result_stafflist_cylance, result_jamf, how='left', on='Computer Name')
 # sort
-not_containining_jamf  = not_containining_jamf.sort_values('Computer Name')
+not_containing_jamf  = not_containing_jamf.sort_values('Computer Name')
 # csvで出力
-not_containining_jamf.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_not_containining_jamf.csv', header = True)
+not_containing_jamf.to_csv('/Users/ito-tomoyo/Desktop/to_csv_out_not_containing_jamf.csv', header = True)
 
-exit
+
 # 2データ（jamf,skysea)の突合
 result_jamf_skysea = pd.merge(result_skysea, result_jamf, how='left', on='Computer Name')
 
