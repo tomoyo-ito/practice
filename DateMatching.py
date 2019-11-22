@@ -3,10 +3,36 @@
 
 import csv
 import os
-import pprint
 import pandas as pd
 import re
 import sys
+
+def exception_list(df):
+    with open('/Users/ito-tomoyo/Practice/ExceptionList.csv',  newline='') as f:
+        dataReader = csv.reader(f)
+        for row in dataReader:
+             # print("{} {}".format(row[0],row[1]))
+            df['Computer Name'] = df['Computer Name'].str.replace(row[0], row[1]) 
+            if 'Last login user' in df.columns:
+                df['Last login user'] = df['Last login user'].str.replace(row[0], row[1]) 
+    return df
+
+def normalize(df):
+    df['Computer Name'] = df['Computer Name'].str.lower() 
+    df['Computer Name'] = df['Computer Name'].str.replace(r'^freeecs\\', '') 
+    df['Computer Name'] = df['Computer Name'].str.replace(r'\\freee$', '') 
+    df['Computer Name'] = df['Computer Name'].str.replace(r'\\admin', '') 
+    df['Computer Name'] = df['Computer Name'].str.replace(r'^freee\\', '') 
+    df['Computer Name'] = df['Computer Name'].str.replace('\-\d$', '') 
+    df['Computer Name'] = df['Computer Name'].str.replace('\d$', '') 
+    df['Computer Name'] = df['Computer Name'].str.replace(' \(\d\)', '') 
+    if 'Last login user' in df.columns:
+        df['Last login user'] = df['Last login user'].str.lower() 
+        df['Last login user'] = df['Last login user'].str.replace('\-\d$', '') 
+        df['Last login user'] = df['Last login user'].str.replace('\d$', '') 
+        df['Last login user'] = df['Last login user'].str.replace(' \(\d\)', '') 
+    return df
+
 
 # Pandasのカラムの設定（全てのPandas関数に適応される）
 pd.set_option('display.max_rows', 1000)
@@ -16,7 +42,6 @@ pd.set_option('display.max_rows', 1000)
 ######################
 
 ### jamf
-
 # jamfの特定の列だけを読み込む
 df_jamf = pd.read_csv('/Users/ito-tomoyo/Desktop/jamf.csv', usecols=['Computer Name', 'MAC Address']) #jamf
 # カラムの名前を変える関数を追加する
@@ -24,20 +49,15 @@ df_jamf = df_jamf.rename(columns={'Computer Name':'Computer Name', 'MAC Address'
 # MACaddressの：を-に置換
 df_jamf = df_jamf.replace(':', '-', regex = True) #jamf
 # DataFrame は Valeをいじれないので、Seriesにして小文字に変更
-df_jamf_lower = df_jamf['Computer Name'].str.lower() 
-# DataFrameにする
-df_jamf_lower = pd.DataFrame(df_jamf_lower.values)
-df_jamf_lower.columns = ['Computer Name']
-# DataFrameの結合
-result_jamf = pd.concat([df_jamf_lower, df_jamf], axis=1)
+df_jamf = normalize(df_jamf)
+df_jamf = exception_list(df_jamf)
 # jamf カラムを追加する
-result_jamf['jamf'] = 1
+df_jamf['jamf'] = 1
 # print(result_jamf)
 
 
 
 ### skysea (Mac)
-
 # skyseaの特定の列だけを読み込む
 df_skysea = pd.read_csv('/Users/ito-tomoyo/Desktop/skysea.csv', usecols=['コンピューター名', '端末機タイプ', 'MACアドレス 1', 'MACアドレス 2', 'MACアドレス 3', 'MACアドレス 4', 'MACアドレス 5', 'MACアドレス 6', 'MACアドレス 7', 'MACアドレス 8', 'MACアドレス 9']) #skysea
 # カラムの名前を変える関数を追加する
@@ -46,41 +66,9 @@ df_skysea = df_skysea.rename(columns={'コンピューター名':'Computer Name'
 df_skysea_mac = df_skysea.query('type.str.contains("Mac")', engine='python')
 df_skysea_mac = df_skysea_mac.reset_index(drop=True)
 # DataFrame は Valeをいじれないので、Seriesにして小文字に変更(macは小文字にしなくてOK)
-df_skysea_mac['Computer Name'] = df_skysea_mac['Computer Name'].str.lower() 
-
 # 数字、（）、ハイフンを削除する
-df_skysea_mac['Computer Name'] = df_skysea_mac['Computer Name'].str.replace(r'^freee\\', '') 
-df_skysea_mac['Computer Name'] = df_skysea_mac['Computer Name'].str.replace('\-\d$', '') 
-df_skysea_mac['Computer Name'] = df_skysea_mac['Computer Name'].str.replace('\d$', '') 
-df_skysea_mac['Computer Name'] = df_skysea_mac['Computer Name'].str.replace(' \(\d\)', '') 
-
-with open('/Users/ito-tomoyo/Desktop/ExceptionList.csv',  newline='') as f:
-    dataReader = csv.reader(f)
-    for row in dataReader:
-         # print("{} {}".format(row[0],row[1]))
-         df_skysea_mac['Computer Name'] = df_skysea_mac['Computer Name'].str.replace(row[0], row[1]) 
-
-
-# df_skysea_mac['Computer Name'] = df_skysea_mac['Computer Name'].str.replace('hideyuki-sakamo', 'sakamoto-hideyu') 
-# df_skysea_mac['Computer Name'] = df_skysea_mac['Computer Name'].str.replace('yamaguchi-teppe', 'teppei-yamaguch') 
-# df_skysea_mac['Computer Name'] = df_skysea_mac['Computer Name'].str.replace('kuanyu-pan', 'pan-kuanyu') 
-# df_skysea_mac['Computer Name'] = df_skysea_mac['Computer Name'].str.replace('hayashihiroyuki', 'hayashi-hiroyuk') 
-# df_skysea_mac['Computer Name'] = df_skysea_mac['Computer Name'].str.replace('yusuke-sato', 'sato-yusuke') 
-# df_skysea_mac['Computer Name'] = df_skysea_mac['Computer Name'].str.replace('kote', 'kotegawa-shuhei') 
-# df_skysea_mac['Computer Name'] = df_skysea_mac['Computer Name'].str.replace('takashi-sato', 'sato-takashi') 
-# df_skysea_mac['Computer Name'] = df_skysea_mac['Computer Name'].str.replace('yoshida-takehir', 'yoshida-takehik') 
-# df_skysea_mac['Computer Name'] = df_skysea_mac['Computer Name'].str.replace('funakochi-yuki', 'funakoshi-yuki') 
-# df_skysea_mac['Computer Name'] = df_skysea_mac['Computer Name'].str.replace('miry', 'hirono-miry') 
-# df_skysea_mac['Computer Name'] = df_skysea_mac['Computer Name'].str.replace('miyazati-risa', 'miyazato-risa') 
-# df_skysea_mac['Computer Name'] = df_skysea_mac['Computer Name'].str.replace('hizume-juri', 'hizume-jyuri') 
-# df_skysea_mac['Computer Name'] = df_skysea_mac['Computer Name'].str.replace('takamiya-shuhei', 'koizumi-tomoko') 
-# df_skysea_mac['Computer Name'] = df_skysea_mac['Computer Name'].str.replace('niel', 'soda-tomoko') 
-# df_skysea_mac['Computer Name'] = df_skysea_mac['Computer Name'].str.replace('tagagi-shun', 'takagi-shun') 
-# df_skysea_mac['Computer Name'] = df_skysea_mac['Computer Name'].str.replace('takimiya-shuhei', 'takamiya-shuhei') 
-# df_skysea_mac['Computer Name'] = df_skysea_mac['Computer Name'].str.replace('julien-go', 'go-julien') 
-
-# macのComputer NameをWINに合わせて15文字までに切っちゃう💫
-# df_skysea_mac['Computer Name'] = df_skysea_mac['Computer Name'].str.slice(0,15)
+df_skysea_mac = normalize(df_skysea_mac)
+df_skysea_mac = exception_list(df_skysea_mac)
 # skysea カラムを追加する
 df_skysea_mac['skysea'] = 2
 # print(df_skysea)
@@ -88,7 +76,6 @@ df_skysea_mac['skysea'] = 2
 
 
 ### skysea (Win)
-
 # skyseaの特定の列だけを読み込む
 df_skysea = pd.read_csv('/Users/ito-tomoyo/Desktop/skysea.csv', usecols=['コンピューター名', '端末機タイプ', 'MACアドレス 1', 'MACアドレス 2', 'MACアドレス 3', 'MACアドレス 4', 'MACアドレス 5', 'MACアドレス 6', 'MACアドレス 7', 'MACアドレス 8', 'MACアドレス 9']) #skysea
 # カラムの名前を変える関数を追加する
@@ -97,27 +84,19 @@ df_skysea = df_skysea.rename(columns={'コンピューター名':'Computer Name'
 df_skysea_win = df_skysea.query('type.str.contains("Win")', engine='python')
 df_skysea_win = df_skysea_win.reset_index(drop=True)
 # DataFrame は Valeをいじれないので、Seriesにして小文字に変更(macは小文字にしなくてOK)
-df_skysea_win['Computer Name']= df_skysea_win['Computer Name'].str.lower() 
 # 数字、（）、ハイフンを削除する
-df_skysea_win['Computer Name'] = df_skysea_win['Computer Name'].str.replace('\-\d$', '') 
-df_skysea_win['Computer Name'] = df_skysea_win['Computer Name'].str.replace('\d$', '') 
-df_skysea_win['Computer Name'] = df_skysea_win['Computer Name'].str.replace(' \(\d\)', '') 
-# skysea カラムを追加する
+df_skysea_win = normalize(df_skysea_win)
 df_skysea_win['skysea'] = 2
 # result_skysea_win.to_csv('/Users/ito-tomoyo/Desktop/to_csv_skysea_win.csv', header = True)
-
-
 ### Skysea(Mac&Win) (Win)は '名前' を '最終ログインユーザー'に置き換えている
 skysea_marge = pd.concat([df_skysea_mac, df_skysea_win], ignore_index=True, sort = True)
-# macのComputer NameをWINに合わせて15文字までに切っちゃう💫
+# macのComputer NameをWINに合わせて15文字までに切っちゃう
 skysea_marge['Computer Name'] = skysea_marge['Computer Name'].str.slice(0,15)
 # csvで出力
 # skysea_marge.to_csv('/Users/ito-tomoyo/Desktop/to_csv_skysea_marge.csv', header = True)
 
 
-
 ### cylance(Mac)
-
 # cylanceの特定の列だけを読み込む
 df_cylance = pd.read_csv('/Users/ito-tomoyo/Desktop/cylance.csv', usecols=['名前', 'MACアドレス', 'ゾーン', '最終接続日', '最終ログインユーザー']) #cylance
 # カラムの名前を変える関数を追加する
@@ -129,66 +108,13 @@ df_cylance_mac = df_cylance_mac.reset_index(drop=True)
 df_cylance_mac['C_MAC Address'] = df_cylance_mac['C_MAC Address'].str.split(',', expand=True) #cylance
 # print(df_cylance_split)
 # DataFrame は Valeをいじれないので、Seriesにして小文字に変更
-df_cylance_mac['Computer Name'] = df_cylance_mac['Computer Name'].str.lower() 
-df_cylance_mac['Last login user'] = df_cylance_mac['Last login user'].str.lower() 
 # 数字、（）、ハイフンを削除する
-df_cylance_mac['Computer Name'] = df_cylance_mac['Computer Name'].str.replace(r'^freee\\', '') 
-df_cylance_mac['Computer Name'] = df_cylance_mac['Computer Name'].str.replace('\-\d$', '') 
-df_cylance_mac['Computer Name'] = df_cylance_mac['Computer Name'].str.replace('\d$', '') 
-df_cylance_mac['Computer Name'] = df_cylance_mac['Computer Name'].str.replace(' \(\d\)', '') 
-
-with open('/Users/ito-tomoyo/Desktop/ExceptionList.csv',  newline='') as f:
-    dataReader = csv.reader(f)
-    for row in dataReader:
-         # print("{} {}".format(row[0],row[1]))
-         df_cylance_mac['Computer Name'] = df_cylance_mac['Computer Name'].str.replace(row[0], row[1]) 
-
-# df_cylance_mac['Computer Name'] = df_cylance_mac['Computer Name'].str.replace('hideyuki-sakamo', 'sakamoto-hideyu') 
-# df_cylance_mac['Computer Name'] = df_cylance_mac['Computer Name'].str.replace('yamaguchi-teppe', 'teppei-yamaguch') 
-# df_cylance_mac['Computer Name'] = df_cylance_mac['Computer Name'].str.replace('kuanyu-pan', 'pan-kuanyu') 
-# df_cylance_mac['Computer Name'] = df_cylance_mac['Computer Name'].str.replace('hayashihiroyuki', 'hayashi-hiroyuk') 
-# df_cylance_mac['Computer Name'] = df_cylance_mac['Computer Name'].str.replace('yusuke-sato', 'sato-yusuke') 
-# df_cylance_mac['Computer Name'] = df_cylance_mac['Computer Name'].str.replace('kote', 'kotegawa-shuhei') 
-# df_cylance_mac['Computer Name'] = df_cylance_mac['Computer Name'].str.replace('takashi-sato', 'sato-takashi') 
-# df_cylance_mac['Computer Name'] = df_cylance_mac['Computer Name'].str.replace('yoshida-takehir', 'yoshida-takehik') 
-# df_cylance_mac['Computer Name'] = df_cylance_mac['Computer Name'].str.replace('funakochi-yuki', 'funakoshi-yuki') 
-# df_cylance_mac['Computer Name'] = df_cylance_mac['Computer Name'].str.replace('miry', 'hirono-miry') 
-# df_cylance_mac['Computer Name'] = df_cylance_mac['Computer Name'].str.replace('miyazati-risa', 'miyazato-risa') 
-# df_cylance_mac['Computer Name'] = df_cylance_mac['Computer Name'].str.replace('hizume-juri', 'hizume-jyuri') 
-# df_cylance_mac['Computer Name'] = df_cylance_mac['Computer Name'].str.replace('takamiya-shuhei', 'koizumi-tomoko') 
-# df_cylance_mac['Computer Name'] = df_cylance_mac['Computer Name'].str.replace('niel', 'soda-tomoko') 
-# df_cylance_mac['Computer Name'] = df_cylance_mac['Computer Name'].str.replace('tagagi-shun', 'takagi-shun') 
-# df_cylance_mac['Computer Name'] = df_cylance_mac['Computer Name'].str.replace('takimiya-shuhei', 'takamiya-shuhei') 
-# df_cylance_mac['Computer Name'] = df_cylance_mac['Computer Name'].str.replace('julien-go', 'go-julien') 
-# df_cylance_mac['Computer Name'] = df_cylance_mac['Computer Name'].str.replace('uehara-toru', 'nakamura-soshi') # uehara-toru,nakamura-soshiがTRUEにもいてうまく置換されない
-# df_cylance_mac['Computer Name'] = df_cylance_mac['Computer Name'].str.replace('iwata-asaki', 'moriya-shotaro') # iwata-asaki,moriya-shotaro'がTRUEにもいてうまく置換されない
-
-
-df_cylance_mac['Last login user'] = df_cylance_mac['Last login user'].str.replace('\-\d$', '') 
-df_cylance_mac['Last login user'] = df_cylance_mac['Last login user'].str.replace('\d$', '') 
-df_cylance_mac['Last login user'] = df_cylance_mac['Last login user'].str.replace(' \(\d\)', '') 
-df_cylance_mac['Last login user'] = df_cylance_mac['Last login user'].str.replace(' \(\d\)', '') 
-
-with open('/Users/ito-tomoyo/Desktop/ExceptionList.csv',  newline='') as f:
-    dataReader = csv.reader(f)
-    for row in dataReader:
-         # print("{} {}".format(row[0],row[1])) * {}の中身を　row に置き換えることをプレースホルダという
-         df_cylance_mac['Last login user'] = df_cylance_mac['Last login user'].str.replace(row[0], row[1]) 
-         df_cylance_mac['Computer Name'] = df_cylance_mac['Computer Name'].str.replace(row[0], row[1]) 
-# df_cylance_mac['Last login user'] = df_cylance_mac['Last login user'].str.replace('yuya-tanaka', 'tanaka-yuya') 
-# df_cylance_mac['Last login user'] = df_cylance_mac['Last login user'].str.replace('yusuke-sato', 'sato-yusuke') 
-
-# macのComputer NameをWINに合わせて15文字までに切っちゃう💫
-# df_cylance_mac['Computer Name'] = df_cylance_mac['Computer Name'].str.slice(0,15)
-# df_cylance_mac['Last login user'] = df_cylance_mac['Last login user'].str.slice(0,15)
+df_cylance_mac = normalize(df_cylance_mac)
+df_cylance_mac = exception_list(df_cylance_mac)
 # cylance カラムを追加する
 df_cylance_mac['cylance'] = 3
-
 # csvで出力
 # df_cylance_mac.to_csv('/Users/ito-tomoyo/Desktop/to_csv_cylance_mac.csv', header = True)
-
-
-### cylance(Win) '名前' を '最終ログインユーザー'に置き換えている
 
 # cylanceの特定の列だけを読み込む
 df_cylance = pd.read_csv('/Users/ito-tomoyo/Desktop/cylance.csv', usecols=['名前', 'MACアドレス', 'ゾーン', '最終接続日', '最終ログインユーザー']) #cylance
@@ -200,54 +126,9 @@ df_cylance_win = df_cylance_win.reset_index(drop=True)
 # MACaddressを「,」区切りで分割
 df_cylance_win['C_MAC Address'] = df_cylance_win['C_MAC Address'].str.split(',', expand=True) #cylance
 # DataFrame は Valeをいじれないので、Seriesにして小文字に変更
-df_cylance_win['Computer Name'] = df_cylance_win['Computer Name'].str.lower() 
-df_cylance_win['Last login user'] = df_cylance_win['Last login user'].str.lower() 
 # 数字、（）、ハイフンを削除する
-df_cylance_win['Computer Name'] = df_cylance_win['Computer Name'].str.replace(r'^freee\\', '') 
-df_cylance_win['Computer Name'] = df_cylance_win['Computer Name'].str.replace(r'^freeecs\\', '') 
-df_cylance_win['Computer Name'] = df_cylance_win['Computer Name'].str.replace(r'\\freee$', '') 
-df_cylance_win['Computer Name'] = df_cylance_win['Computer Name'].str.replace(r'\\admin', '') 
-df_cylance_win['Computer Name'] = df_cylance_win['Computer Name'].str.replace('\-\d$', '') 
-df_cylance_win['Computer Name'] = df_cylance_win['Computer Name'].str.replace('\d$', '') 
-df_cylance_win['Computer Name'] = df_cylance_win['Computer Name'].str.replace(' \(\d\)', '') 
-
-
-with open('/Users/ito-tomoyo/Desktop/ExceptionList.csv',  newline='') as f:
-    dataReader = csv.reader(f)
-    for row in dataReader:
-         # print("{} {}".format(row[0],row[1]))
-         df_cylance_win['Computer Name'] = df_cylance_win['Computer Name'].str.replace(row[0], row[1]) 
-         df_cylance_win['Last login user'] = df_cylance_win['Last login user'].str.replace(row[0], row[1]) 
-
-
-# df_cylance_win['Computer Name'] = df_cylance_win['Computer Name'].str.replace('yuki-funakoshi', 'funakoshi-yuki') 
-# df_cylance_win['Computer Name'] = df_cylance_win['Computer Name'].str.replace('noriko-nishida', 'nishida-noriko') 
-#名前が間違っている人の置き換え
-# df_cylance_win['Computer Name'] = df_cylance_win['Computer Name'].str.replace('noriko-nishida', 'nishida-noriko') 
-# df_cylance_win['Computer Name'] = df_cylance_win['Computer Name'].str.replace('yamagishi-meiko', 'yamagishi-mieko') 
-# df_cylance_win['Computer Name'] = df_cylance_win['Computer Name'].str.replace('kobayashi-natsu', 'takano-naomi')
-# df_cylance_win['Last login user'] = df_cylance_win['Last login user'].str.replace('saruta-masaki', 'saruta-masataka') 
-# df_cylance_win['Last login user'] = df_cylance_win['Last login user'].str.replace('takazawa-sachi', 'takazawa-sachik') 
-# df_cylance_win['Last login user'] = df_cylance_win['Last login user'].str.replace('yamazaki-kyohei', 'yamamoto-kyohei') 
-# df_cylance_win['Last login user'] = df_cylance_win['Last login user'].str.replace('laura-wakefield', 'darren-wakefiel') #退職者
-# df_cylance_win['Last login user'] = df_cylance_win['Last login user'].str.replace('kobayashi-tak', 'kobayashi-takas') 
-# df_cylance_win['Last login user'] = df_cylance_win['Last login user'].str.replace('saji-marina', 'fuse-mitsuko') 
-# df_cylance_win['Last login user'] = df_cylance_win['Last login user'].str.replace('ogomori-take', 'ogomori-takenor') 
-# df_cylance_win['Last login user'] = df_cylance_win['Last login user'].str.replace('sawamura-shin', 'sawamura-shinji') 
-# df_cylance_win['Last login user'] = df_cylance_win['Last login user'].str.replace('matsuzaki-maegu', 'matsuzaki-megum') 
-# df_cylance_win['Last login user'] = df_cylance_win['Last login user'].str.replace('nanbu-seisuke', 'nambu-seisuke') 
-# df_cylance_win['Last login user'] = df_cylance_win['Last login user'].str.replace('aaa', 'fukuda-miyuki') 
-# df_cylance_win['Last login user'] = df_cylance_win['Last login user'].str.replace('kuroda-yukihiro', 'kuroda-yukihiko') 
-# df_cylance_win['Last login user'] = df_cylance_win['Last login user'].str.replace('saruta-masaki', 'saruta-masataka') 
-# df_cylance_win['Last login user'] = df_cylance_win['Last login user'].str.replace('yamagishi-meiko', 'yamagishi-mieko') 
-# df_cylance_win['Last login user'] = df_cylance_win['Last login user'].str.replace('daigo-ryuichi', 'honda-kensei') 
-
-
-
-
-# WINはLastLoginUserのComputer Nameをにしているので、15文字までに切っちゃう）💫
-#df_cylance_win['Computer Name'] = df_cylance_win['Computer Name'].str.slice(0,15)
-#df_cylance_win['Last login user'] = df_cylance_win['Last login user'].str.slice(0,15)
+df_cylance_win = normalize(df_cylance_win)
+df_cylance_win = exception_list(df_cylance_win)
 # cylance カラムを追加する
 df_cylance_win['cylance'] = 3
 # csvで出力
@@ -260,18 +141,6 @@ cylance_marge = pd.concat([df_cylance_mac, df_cylance_win], ignore_index=True, s
 # csvで出力
 cylance_marge.to_csv('/Users/ito-tomoyo/Desktop/to_csv_cylance_marge2.csv', header = True)
 
-# ある特定の文字を含む直を削除する💫💫
-# cylance_marge['Computer Name'] = cylance_marge['Computer Name'][cylance_marge['Computer Name'].str.contains('macbook pro') == False]
-# cylance_marge['Computer Name'] = cylance_marge['Computer Name'][cylance_marge['Computer Name'].str.contains('macbook air') == False]
-
-# ある特定の文字を含む行を削除する💫💫
-# cylance_marge = cylance_marge.query('~"Computer\ Name".str.contains("macbook")', engine='python')
-# cylance_marge = cylance_marge[cylance_marge["Computer Name"].str.contains("macbook") == False] 
-# cylance_marge = cylance_marge[cylance_marge["Last login user"].str.contains("ec2") == False]
-# print(cylance_marge)
-# csvで出力
-# cylance_marge.to_csv('/Users/ito-tomoyo/Desktop/to_csv_cylance_marge.csv', header = True)
-
 # staff listの特定の列を読み込む
 df_stafflist = pd.read_csv('/Users/ito-tomoyo/Desktop/stafflist.csv', header=1, usecols=['Name', '部署', '雇用形態']) #staff list
 # カラムの名前を変える関数を追加する
@@ -279,44 +148,25 @@ df_stafflist = df_stafflist.rename(columns={'Name':'Computer Name', '部署':'De
 # スペース区切りで列を分割する
 df_stafflist_split  = df_stafflist['Computer Name'].str.split('\s', expand=True)
 # catを使って列を一つに
-df_stafflist_split = (df_stafflist_split[1].str.cat(df_stafflist_split[0], sep='-'))
-# 小文字にする
-df_stafflist_lower = df_stafflist_split.str.lower() 
-# DataFrameにする
-df_stafflist_lower = pd.DataFrame(df_stafflist_lower.values)
-# 列名の指定
-df_stafflist_lower.columns = ['Computer Name']
-# 'Department'カラムの追加
-left = df_stafflist_lower
-right = df_stafflist ['Department']
-result_stafflist = left.join(right)
-# 'Department'カラムの追加
-left = df_stafflist_lower
-right = df_stafflist ['type']
-result_stafflist = left.join(right)
-# staff list カラムを追加する
-result_stafflist['staff list'] = 4
-
-
-#名前が間違っている人の置き換え💫
-with open('/Users/ito-tomoyo/Desktop/ExceptionList.csv',  newline='') as f:
-    dataReader = csv.reader(f)
+df_stafflist['Computer Name'] = (df_stafflist_split[1].str.cat(df_stafflist_split[0], sep='-'))
+#名前が間違っている人の置き換え
+df_stafflist = normalize(df_stafflist)
+df_stafflist = exception_list(df_stafflist)
+#対象外Listに基づき削除 
+with open('/Users/ito-tomoyo/Practice/IgnoreList.csv',  newline='') as z:
+    dataReader = csv.reader(z)
     for row in dataReader:
-         # print("{} {}".format(row[0],row[1]))
-         result_stafflist['Computer Name'] = result_stafflist['Computer Name'].str.replace(row[0], row[1]) 
+         df_stafflist = df_stafflist[df_stafflist['Computer Name'] != row[0]]
+         # print("{}".format(row[0]))
 
-# result_stafflist['Computer Name'] = result_stafflist['Computer Name'].str.replace('aye-hninhnin', 'hninhnin-aye') 
-# result_stafflist['Computer Name'] = result_stafflist['Computer Name'].str.replace('takeji-yoshio', 'yoshio-takeji') 
-# result_stafflist['Computer Name'] = result_stafflist['Computer Name'].str.replace('wei-zhou', 'zhou-wei') 
-# result_stafflist['Computer Name'] = result_stafflist['Computer Name'].str.replace('tomoyoshi-fukazu', 'fukazu-tomoyoshi') 
-# result_stafflist['Computer Name'] = result_stafflist['Computer Name'].str.replace('rieko-kozawa', 'kozawa-rieko') 
-# result_stafflist['Computer Name'] = result_stafflist['Computer Name'].str.replace('prasant-dev', 'dev-prasant') 
-# WINはLastLoginUserのComputer Nameをにしているので、15文字までに切っちゃう）💫
-result_stafflist['Computer Name'] = result_stafflist['Computer Name'].str.slice(0,15)
+# WINはLastLoginUserのComputer Nameをにしているので、15文字までに切っちゃう）
+df_stafflist['Computer Name'] = df_stafflist['Computer Name'].str.slice(0,15)
+# staff list カラムを追加する
+df_stafflist['staff list'] = 4
 
-# print(result_stafflist)
+# print(df_stafflist
 #　csvで出力
-result_stafflist.to_csv('/Users/ito-tomoyo/Desktop/stafflist_update.csv', header = True)
+df_stafflist.to_csv('/Users/ito-tomoyo/Desktop/stafflist_update.csv', header = True)
 
 
 ######################
@@ -325,7 +175,7 @@ result_stafflist.to_csv('/Users/ito-tomoyo/Desktop/stafflist_update.csv', header
 
 # Cylanceの NameとLast loginが同じでないものを確認する
 cylance_marge['check'] = (cylance_marge['Computer Name'] == cylance_marge['Last login user'])
-# macのComputer NameをWINに合わせて15文字までに切っちゃう💫
+# macのComputer NameをWINに合わせて15文字までに切っちゃう
 cylance_marge['Computer Name'] = cylance_marge['Computer Name'].str.slice(0,15)
 cylance_marge['Last login user'] = cylance_marge['Last login user'].str.slice(0,15)
 #　csvで出力
@@ -334,7 +184,7 @@ cylance_marge.to_csv('/Users/ito-tomoyo/Desktop/check.csv', header = True)
 
 
 # stafflistにあってskyseaにないList 💫
-skysea_add_target = result_stafflist.merge(skysea_marge, left_on='Computer Name', right_on='Computer Name', how='left')
+skysea_add_target = df_stafflist.merge(skysea_marge, left_on='Computer Name', right_on='Computer Name', how='left')
 # sort
 skysea_add_target  = skysea_add_target.sort_values('Computer Name')
 # csvで出力
@@ -343,15 +193,15 @@ skysea_add_target.to_csv('/Users/ito-tomoyo/Desktop/skysea_add_target.csv', head
 
 
 # stafflistにあってcylanceにないList 💫
-cylance_add_target = result_stafflist.merge(cylance_marge, left_on='Computer Name', right_on='Computer Name', how='left')
+cylance_add_target = df_stafflist.merge(cylance_marge, left_on='Computer Name', right_on='Computer Name', how='left')
 # sort
 cylance_add_target  = cylance_add_target.sort_values('Computer Name')
 # 違いがあるものだけだす
-# cylance_add_target = result_stafflist.concat([result_stafflist['Computer Name'],cylance_marge['Computer Name']]).drop_duplicates(keep=False)
+# cylance_add_target = df_stafflist.concat([df_stafflist['Computer Name'],cylance_marge['Computer Name']]).drop_duplicates(keep=False)
 # csvで出力
 cylance_add_target.to_csv('/Users/ito-tomoyo/Desktop/cylance_add_target.csv', header = True)
 # ある特定の文字を含む直を削除する💫💫
-print(cylance_add_target.query('cylance != 3.0'))
+# print(cylance_add_target.query('cylance != 3.0'))
 
 
 # CylanceにあってJamfにない 💫
