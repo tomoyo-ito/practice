@@ -8,6 +8,7 @@ import pandas as pd
 import re
 import sys
 import boto3
+from zipfile import ZipFile
 
 #------------#
 # コマンドメモ
@@ -20,9 +21,9 @@ import boto3
 # unzip
 # 現在のフォルダにコピーする（aws s3 cp  s3://freee-cylance-upload/process_list/yoshizawa-risa.local_85AED71282BE4FAE8D5A39FDE4AFB57B.zip .）
 # diff FILE_NAME ~/Downloads/DenySSH.csv 
-#------------#
+
+
 #0.S3の初期設定
-#------------#
 s3 = boto3.client('s3')
 bucket = "freee-cylance-upload"
 
@@ -55,16 +56,12 @@ def listup_objects(bucket='', prefix=''):
 #        dirs.append(dir)
 #    return dirs
 
-#------------#
 #1.s3 bucket name prefix (ファイル名を問い合わせる)(prefixとはディレクトリのこと)
 #2.filenamelist を取得する
-#------------#
 files = listup_objects(bucket=bucket, prefix="2019/11/20") #日付変える
 print(files)
 
-#------------#
 #3.ファイルをダウンロードして保存する
-#------------#
 for file in files:
     print("download...{}".format(file))
     s3.download_file(bucket, "2019/11/20" +file, 'FILE_NAME') #https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.download_file
@@ -74,11 +71,27 @@ for file in files:
 #    with open('FILE_NAME', 'wb') as f:
 #        s3.download_fileobj('BUCKET_NAME', 'OBJECT_NAME', f)
 
-#------------#
 #4.Zipファイル解凍する
-#------------#
+    with ZipFile('FILE_NAME') as existing_zip:
+# 展開されるディレクトリのパスを指定する。省略するとカレントディレクトリに解凍される。
+        existing_zip.extractall('')
 
+# テキストをCSVにする（行を分割する）
+    with open('./1/stdout', 'r') as in_file:
+        lines = in_file.read().splitlines()
+ #   lines = (line.split(" ") 
+        for line in lines:
+#        print("{}".format(line)) #("{}\n".format(line))
+            columns = line.split()
+            if len(columns) > 10:
+                del(columns[0:10])
+                print(" ".join(columns))
+ #       print(len(columns)) # カラムが何行あるか計算してくれる
 
+ #   with open('stdout.csv', 'w') as out_file:
+ #       writer = csv.writer(out_file)
+ #       writer.writerow(('USER', 'PID', '%CPU', '%MEM', 'VSZ', 'RSS', 'TT', 'STAT', 'STARTED', 'TIME' 'COMMAND'))
+ #       writer.writerows(lines)
 
 #------------#
 #5.sudo out の pc aws の process name など出力
@@ -95,12 +108,13 @@ for file in files:
 #------------#
 #7.ダウンロードしたファイル削除
 #------------#
-# ダウンロードしたファイルを保存するためのフォルダパスを指定する 
-path = 'FILE_NAME'
+# ダウンロードしたファイルを保存するためのフォルダパ スを指定する 
+#path = 'FILE_NAME'
 # ダウンロードした、ファイルを削除する
-# os.remove(path) 
+#os.remove(path) 
 # ダウンロードした、ファイルごとディレクトリを削除する
-# shutil.rmtree("1") 
+#shutil.rmtree("1") 
+
 # 同じフォルダ作成する
 # os.makedirs(path, exist_ok=True) 
 # ディレクトリの存在有無を確認
@@ -114,4 +128,3 @@ path = 'FILE_NAME'
 # csvで出力
 # XXXXXXX.to_csv('/Users/ito-tomoyo/Desktop/get_process.csv', header = True)
 # print(result)
-
