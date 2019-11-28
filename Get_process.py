@@ -64,7 +64,8 @@ print(files)
 #3.ファイルをダウンロードして保存する
 for file in files:
     print("download...{}".format(file))
-    s3.download_file(bucket, "2019/11/20" +file, 'FILE_NAME') #https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.download_file
+    s3.download_file(bucket, "2019/11/20" +file, "./Process/FILE_NAME") #https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.download_file
+    print(file)
 
 #boto3
 # https://boto3.amazonaws.com/v1/documentation/api/latest/guide/s3-example-download-file.html
@@ -72,21 +73,27 @@ for file in files:
 #        s3.download_fileobj('BUCKET_NAME', 'OBJECT_NAME', f)
 
 #4.Zipファイル解凍する
-    with ZipFile('FILE_NAME') as existing_zip:
+    with ZipFile("./Process/FILE_NAME") as existing_zip:
 # 展開されるディレクトリのパスを指定する。省略するとカレントディレクトリに解凍される。
         existing_zip.extractall('')
 
-# テキストをCSVにする（行を分割する）
-    with open('./1/stdout', 'r') as in_file:
+# 行を分割する
+    with open('./Process/1/stdout', 'r') as in_file:
         lines = in_file.read().splitlines()
- #   lines = (line.split(" ") 
+#   lines = (line.split(" ") 
         for line in lines:
 #        print("{}".format(line)) #("{}\n".format(line))
             columns = line.split()
-            if len(columns) > 10:
+            if len(columns) > 10:  # print(len(columns)) # カラムが何行あるか計算してくれる
                 del(columns[0:10])
-                print(" ".join(columns))
- #       print(len(columns)) # カラムが何行あるか計算してくれる
+# まるっとコピーして、Outputフォルダに配置
+                shutil.copytree('./Process/Template', './Process/Output/Template')
+# Templateフォルダ名の変更
+                os.rename('./Process/Output/Template', './Process/Output/' +file) 
+# sample.txt に書き込み
+                with open('./Process/Output/Template/sample.txt', 'w') as f:
+                    print(" ".join(columns), file=f)
+
 
  #   with open('stdout.csv', 'w') as out_file:
  #       writer = csv.writer(out_file)
@@ -96,6 +103,7 @@ for file in files:
 #------------#
 #5.sudo out の pc aws の process name など出力
 #------------#
+
 
 
 #------------#
