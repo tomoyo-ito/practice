@@ -1,0 +1,388 @@
+,Name,Command
+0,ito-tomoyo-2,TIME COMMAND
+1,ito-tomoyo-2,/Library/Application Support/Cylance/Optics/CyOptics.app/Contents/Resources/Plugins/RefractM.exe
+2,ito-tomoyo-2,/System/Library/PrivateFrameworks/HelpData.framework/Versions/A/Resources/helpd
+3,ito-tomoyo-2,com.docker.hyperkit
+4,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+5,ito-tomoyo-2,/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared
+6,ito-tomoyo-2,/System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer
+7,ito-tomoyo-2,/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mds_stores
+8,ito-tomoyo-2,/usr/libexec/opendirectoryd
+9,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (GPU).app/Contents/MacOS/Google Chrome Helper (GPU)
+10,ito-tomoyo-2,/sbin/launchd
+11,ito-tomoyo-2,/Applications/SKYSEAClientView.app/Contents/MacOS/SkyDaemon
+12,ito-tomoyo-2,/Library/Application Support/Cylance/Optics/CyOptics.app/Contents/MacOS/CyOptics
+13,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+14,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+15,ito-tomoyo-2,/Library/Application Support/JAMF/Jamf.app/Contents/MacOS/JamfDaemon.app/Contents/MacOS/JamfDaemon
+16,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper
+17,ito-tomoyo-2,/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Support/mds
+18,ito-tomoyo-2,/usr/libexec/UserEventAgent (Aqua)
+19,ito-tomoyo-2,/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer)
+20,ito-tomoyo-2,/usr/sbin/cfprefsd agent
+21,ito-tomoyo-2,/usr/sbin/notifyd
+22,ito-tomoyo-2,/usr/libexec/configd
+23,ito-tomoyo-2,/Users/ito-tomoyo/.vscode/extensions/ms-python.python-2019.11.49689/languageServer.0.4.114/Microsoft.Python.LanguageServer
+24,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+25,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+26,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+27,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+28,ito-tomoyo-2,/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared
+29,ito-tomoyo-2,/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ATS.framework/Versions/A/Support/fontworker
+30,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+31,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+32,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+33,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+34,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+35,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+36,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+37,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+38,ito-tomoyo-2,/usr/sbin/netbiosd
+39,ito-tomoyo-2,/usr/libexec/USBAgent
+40,ito-tomoyo-2,/System/Library/CoreServices/PowerChime.app/Contents/MacOS/PowerChime
+41,ito-tomoyo-2,/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/storeinstalld
+42,ito-tomoyo-2,/usr/bin/ssh-agent
+43,ito-tomoyo-2,/System/Library/Frameworks/AppKit.framework/Versions/C/XPCServices/com.apple.appkit.xpc.openAndSavePanelService.xpc/Contents/MacOS/com.apple.appkit.xpc.openAndSavePanelService
+44,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+45,ito-tomoyo-2,/System/Library/CoreServices/ScopedBookmarkAgent
+46,ito-tomoyo-2,/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdwrite
+47,ito-tomoyo-2,/System/Library/PrivateFrameworks/XprotectFramework.framework/Versions/A/XPCServices/XprotectService.xpc/Contents/MacOS/XprotectService
+48,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+49,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+50,ito-tomoyo-2,/System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper
+51,ito-tomoyo-2,/System/Library/Frameworks/ColorSync.framework/Support/colorsync.useragent
+52,ito-tomoyo-2,/System/Library/PreferencePanes/Displays.prefPane/Contents/Resources/MirrorDisplays.app/Contents/MacOS/MirrorDisplays
+53,ito-tomoyo-2,/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/DictionaryServices.framework/Versions/A/XPCServices/com.apple.DictionaryServiceHelper.xpc/Contents/MacOS/com.apple.DictionaryServiceHelper
+54,ito-tomoyo-2,/Applications/Slack.app/Contents/Frameworks/Slack Helper (Renderer).app/Contents/MacOS/Slack Helper (Renderer)
+55,ito-tomoyo-2,/System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService
+56,ito-tomoyo-2,/Applications/Slack.app/Contents/Frameworks/Slack Helper (GPU).app/Contents/MacOS/Slack Helper (GPU)
+57,ito-tomoyo-2,/System/Library/CoreServices/ReportCrash daemon
+58,ito-tomoyo-2,/System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper
+59,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+60,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+61,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+62,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+63,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+64,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+65,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+66,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper
+67,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+68,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+69,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+70,ito-tomoyo-2,/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer)
+71,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+72,ito-tomoyo-2,/System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService
+73,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.108/XPCServices/AlertNotificationService.xpc/Contents/MacOS/AlertNotificationService
+74,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/chrome_crashpad_handler
+75,ito-tomoyo-2,/bin/bash
+76,ito-tomoyo-2,/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer) /Applications/Visual Studio Code.app/Contents/Resources/app/out/bootstrap-fork
+77,ito-tomoyo-2,/Applications/Visual Studio Code.app/Contents/Frameworks/Electron Framework.framework/Resources/crashpad_handler
+78,ito-tomoyo-2,/System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService
+79,ito-tomoyo-2,/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (GPU).app/Contents/MacOS/Code Helper (GPU)
+80,ito-tomoyo-2,/usr/libexec/gamecontrollerd
+81,ito-tomoyo-2,com.docker.backend
+82,ito-tomoyo-2,com.docker.driver.amd64-linux
+83,ito-tomoyo-2,com.docker.vpnkit
+84,ito-tomoyo-2,com.docker.osxfs serve
+85,ito-tomoyo-2,/Applications/Docker.app/Contents/MacOS/com.docker.supervisor
+86,ito-tomoyo-2,/Applications/Docker.app/Contents/MacOS/Docker
+87,ito-tomoyo-2,/System/Library/Frameworks/ApplicationServices.framework/Frameworks/ATS.framework/Support/atsd
+88,ito-tomoyo-2,/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/storedownloadd
+89,ito-tomoyo-2,/System/Library/PrivateFrameworks/AppStoreDaemon.framework/Support/appstoreagent
+90,ito-tomoyo-2,/System/Library/PrivateFrameworks/CoreFollowUp.framework/Versions/A/Support/followupd
+91,ito-tomoyo-2,/System/Library/Frameworks/iTunesLibrary.framework/Versions/A/XPCServices/com.apple.iTunesLibraryService.xpc/Contents/MacOS/com.apple.iTunesLibraryService
+92,ito-tomoyo-2,/System/Library/PrivateFrameworks/AssistantServices.framework/Versions/A/XPCServices/media-indexer.xpc/Contents/MacOS/media-indexer
+93,ito-tomoyo-2,/usr/libexec/AssetCache/AssetCache
+94,ito-tomoyo-2,/usr/bin/sysdiagnose
+95,ito-tomoyo-2,/System/Library/PrivateFrameworks/QuickLookThumbnailing.framework/Support/com.apple.quicklook.ThumbnailsAgent
+96,ito-tomoyo-2,/System/Library/PrivateFrameworks/UsageTracking.framework/Versions/A/UsageTrackingAgent
+97,ito-tomoyo-2,/usr/libexec/silhouette
+98,ito-tomoyo-2,/System/Library/PrivateFrameworks/IMDPersistence.framework/IMAutomaticHistoryDeletionAgent.app/Contents/MacOS/IMAutomaticHistoryDeletionAgent
+99,ito-tomoyo-2,/System/Library/PrivateFrameworks/KerberosHelper/Helpers/DiskUnmountWatcher
+100,ito-tomoyo-2,/System/Library/PrivateFrameworks/PhotoAnalysis.framework/Versions/A/Support/photoanalysisd
+101,ito-tomoyo-2,/usr/libexec/seld
+102,ito-tomoyo-2,/System/Library/PrivateFrameworks/PassKitCore.framework/passd
+103,ito-tomoyo-2,/usr/libexec/studentd
+104,ito-tomoyo-2,/usr/libexec/dprivacyd
+105,ito-tomoyo-2,/System/Library/PrivateFrameworks/ProtectedCloudStorage.framework/Helpers/ProtectedCloudKeySyncing
+106,ito-tomoyo-2,/System/Library/CoreServices/SafariSupport.bundle/Contents/MacOS/SafariBookmarksSyncAgent
+107,ito-tomoyo-2,/System/Library/CoreServices/EscrowSecurityAlert.app/Contents/MacOS/EscrowSecurityAlert
+108,ito-tomoyo-2,/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/XPCServices/com.apple.CommerceKit.TransactionService.xpc/Contents/MacOS/com.apple.CommerceKit.TransactionService
+109,ito-tomoyo-2,/System/Library/PrivateFrameworks/CommerceKit.framework/Resources/LaterAgent.app/Contents/MacOS/LaterAgent
+110,ito-tomoyo-2,/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/storeassetd
+111,ito-tomoyo-2,/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/storelegacy
+112,ito-tomoyo-2,/System/Library/CoreServices/Software Update.app/Contents/Resources/softwareupdate_notify_agent
+113,ito-tomoyo-2,/System/Library/Frameworks/ApplicationServices.framework/Frameworks/PrintCore.framework/Versions/A/printtool agent
+114,ito-tomoyo-2,/usr/libexec/loginitemregisterd
+115,ito-tomoyo-2,/usr/libexec/dmd
+116,ito-tomoyo-2,/System/Library/CoreServices/Menu Extras/TextInput.menu/Contents/SharedSupport/TISwitcher.app/Contents/MacOS/TISwitcher
+117,ito-tomoyo-2,/System/Library/PrivateFrameworks/PrintingPrivate.framework/Versions/A/PrintUITool
+118,ito-tomoyo-2,/System/Library/Frameworks/CryptoTokenKit.framework/ctkd
+119,ito-tomoyo-2,/System/Library/Frameworks/CryptoTokenKit.framework/ctkahp.bundle/Contents/MacOS/ctkahp
+120,ito-tomoyo-2,/System/Library/CoreServices/diagnostics_agent
+121,ito-tomoyo-2,/System/Library/PrivateFrameworks/Noticeboard.framework/Versions/A/Resources/nbagent.app/Contents/MacOS/nbagent
+122,ito-tomoyo-2,/System/Library/CoreServices/cloudpaird
+123,ito-tomoyo-2,/System/Library/CoreServices/AirPlayUIAgent.app/Contents/MacOS/AirPlayUIAgent
+124,ito-tomoyo-2,/Applications/SKYSEAClientView.app/Contents/MacOS/SkyAgent
+125,ito-tomoyo-2,/System/Library/Image Capture/Support/icdd
+126,ito-tomoyo-2,/usr/libexec/dmd
+127,ito-tomoyo-2,/usr/local/jamf/bin/jamfAgent
+128,ito-tomoyo-2,/Applications/Cylance/CylanceUI.app/Contents/MacOS/CylanceUI
+129,ito-tomoyo-2,/System/Library/CoreServices/SocialPushAgent.app/Contents/MacOS/SocialPushAgent
+130,ito-tomoyo-2,/System/Library/PrivateFrameworks/CoreSpeech.framework/corespeechd
+131,ito-tomoyo-2,/System/Library/Frameworks/ApplicationServices.framework/Frameworks/SpeechSynthesis.framework/Resources/com.apple.speech.speechsynthesisd
+132,ito-tomoyo-2,/usr/libexec/findmydevice-user-agent
+133,ito-tomoyo-2,/System/Library/PrivateFrameworks/PhotoLibraryPrivate.framework/Versions/A/Support/photolibraryd
+134,ito-tomoyo-2,/System/Library/PrivateFrameworks/CloudPhotoServices.framework/Versions/A/Frameworks/CloudPhotosConfigurationXPC.framework/Versions/A/XPCServices/com.apple.CloudPhotosConfiguration.xpc/Contents/MacOS/com.apple.CloudPhotosConfiguration
+135,ito-tomoyo-2,/System/Library/PrivateFrameworks/CacheDelete.framework/deleted
+136,ito-tomoyo-2,/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/HIServices.framework/Versions/A/XPCServices/com.apple.hiservices-xpcservice.xpc/Contents/MacOS/com.apple.hiservices-xpcservice
+137,ito-tomoyo-2,/System/Library/CoreServices/Menu Extras/SafeEjectGPUExtra.menu/Contents/XPCServices/SafeEjectGPUService.xpc/Contents/MacOS/SafeEjectGPUService
+138,ito-tomoyo-2,SafeEjectGPUAgent
+139,ito-tomoyo-2,/System/Library/PrivateFrameworks/FileProvider.framework/Support/fileproviderd
+140,ito-tomoyo-2,/System/Library/PrivateFrameworks/CallHistory.framework/Support/CallHistoryPluginHelper
+141,ito-tomoyo-2,/System/Library/CoreServices/CoreServicesUIAgent.app/Contents/MacOS/CoreServicesUIAgent
+142,ito-tomoyo-2,/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/corespotlightd
+143,ito-tomoyo-2,/System/Library/Services/AppleSpell.service/Contents/MacOS/AppleSpell
+144,ito-tomoyo-2,/System/Library/CoreServices/Dock.app/Contents/XPCServices/com.apple.dock.extra.xpc/Contents/MacOS/com.apple.dock.extra
+145,ito-tomoyo-2,/System/Library/CoreServices/cloudphotosd.app/Contents/MacOS/cloudphotosd
+146,ito-tomoyo-2,/System/Library/Frameworks/ApplicationServices.framework/Frameworks/SpeechSynthesis.framework/Resources/com.apple.speech.speechsynthesisd
+147,ito-tomoyo-2,/System/Library/PrivateFrameworks/CoreWLANKit.framework/Versions/A/XPCServices/WiFiProxy.xpc/Contents/MacOS/WiFiProxy
+148,ito-tomoyo-2,/usr/libexec/videosubscriptionsd
+149,ito-tomoyo-2,/System/Library/PrivateFrameworks/CoreParsec.framework/parsecd
+150,ito-tomoyo-2,/System/Library/CoreServices/pbs
+151,ito-tomoyo-2,/System/Library/CoreServices/Spotlight.app/Contents/MacOS/Spotlight
+152,ito-tomoyo-2,/System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService
+153,ito-tomoyo-2,/System/Library/CoreServices/Finder.app/Contents/MacOS/Finder
+154,ito-tomoyo-2,/System/Library/CoreServices/SystemUIServer.app/Contents/MacOS/SystemUIServer
+155,ito-tomoyo-2,/System/Library/CoreServices/Dock.app/Contents/MacOS/Dock
+156,ito-tomoyo-2,/usr/libexec/knowledge-agent
+157,ito-tomoyo-2,/usr/libexec/adprivacyd
+158,ito-tomoyo-2,/System/Library/PrivateFrameworks/AccessibilitySupport.framework/Versions/A/Resources/AccessibilityVisualsAgent.app/Contents/MacOS/AccessibilityVisualsAgent
+159,ito-tomoyo-2,/usr/libexec/spindump_agent
+160,ito-tomoyo-2,/usr/sbin/spindump
+161,ito-tomoyo-2,/System/Library/PrivateFrameworks/GeoServices.framework/Versions/A/XPCServices/com.apple.geod.xpc/Contents/MacOS/com.apple.geod
+162,ito-tomoyo-2,/System/Library/PrivateFrameworks/IMFoundation.framework/XPCServices/IMRemoteURLConnectionAgent.xpc/Contents/MacOS/IMRemoteURLConnectionAgent
+163,ito-tomoyo-2,/usr/sbin/filecoordinationd
+164,ito-tomoyo-2,/System/Library/PrivateFrameworks/CharacterPicker.framework/Versions/A/XPCServices/com.apple.CharacterPicker.FileService.xpc/Contents/MacOS/com.apple.CharacterPicker.FileService
+165,ito-tomoyo-2,/usr/libexec/keyboardservicesd
+166,ito-tomoyo-2,/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/commerce
+167,ito-tomoyo-2,/System/Library/Input Methods/EmojiFunctionRowIM.app/Contents/PlugIns/EmojiFunctionRowIM_Extension.appex/Contents/MacOS/EmojiFunctionRowIM_Extension
+168,ito-tomoyo-2,/System/Library/Input Methods/JapaneseIM.app/Contents/PlugIns/JapaneseIM.appex/Contents/MacOS/JapaneseIM
+169,ito-tomoyo-2,/System/Library/PrivateFrameworks/AuthKit.framework/Versions/A/Support/akd
+170,ito-tomoyo-2,/Applications/Microsoft Remote Desktop.app/Contents/MacOS/Microsoft Remote Desktop
+171,ito-tomoyo-2,/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/storeaccountd
+172,ito-tomoyo-2,/System/Library/Frameworks/AudioToolbox.framework/AudioComponentRegistrar
+173,ito-tomoyo-2,/System/Library/CoreServices/CoreLocationAgent.app/Contents/MacOS/CoreLocationAgent
+174,ito-tomoyo-2,/System/Library/CoreServices/iconservicesagent
+175,ito-tomoyo-2,/usr/libexec/pkd
+176,ito-tomoyo-2,/System/Library/Frameworks/InputMethodKit.framework/Resources/imklaunchagent
+177,ito-tomoyo-2,/System/Library/PrivateFrameworks/IMFoundation.framework/XPCServices/IMRemoteURLConnectionAgent.xpc/Contents/MacOS/IMRemoteURLConnectionAgent
+178,ito-tomoyo-2,/System/Library/PrivateFrameworks/MediaRemote.framework/Support/mediaremoteagent
+179,ito-tomoyo-2,/System/Library/PrivateFrameworks/IMFoundation.framework/XPCServices/IMRemoteURLConnectionAgent.xpc/Contents/MacOS/IMRemoteURLConnectionAgent
+180,ito-tomoyo-2,/Applications/Adobe Acrobat Reader DC.app/Contents/MacOS/AdobeReader
+181,ito-tomoyo-2,/System/Library/PrivateFrameworks/FamilyCircle.framework/Versions/A/Resources/familycircled
+182,ito-tomoyo-2,/System/Library/PrivateFrameworks/AssistantServices.framework/Versions/A/Support/assistantd
+183,ito-tomoyo-2,/usr/libexec/swcd
+184,ito-tomoyo-2,/System/Library/PrivateFrameworks/CloudDocsDaemon.framework/Versions/A/Support/bird
+185,ito-tomoyo-2,/usr/libexec/fmfd
+186,ito-tomoyo-2,/System/Library/CoreServices/mapspushd
+187,ito-tomoyo-2,/System/Library/PrivateFrameworks/ViewBridge.framework/Versions/A/XPCServices/ViewBridgeAuxiliary.xpc/Contents/MacOS/ViewBridgeAuxiliary
+188,ito-tomoyo-2,/usr/libexec/sharingd
+189,ito-tomoyo-2,/System/Library/PrivateFrameworks/UserActivity.framework/Agents/useractivityd
+190,ito-tomoyo-2,/System/Library/PrivateFrameworks/MessagesKit.framework/Resources/soagent.app/Contents/MacOS/soagent
+191,ito-tomoyo-2,/System/Library/PrivateFrameworks/CoreSuggestions.framework/Versions/A/Support/suggestd
+192,ito-tomoyo-2,/System/Library/PrivateFrameworks/IMFoundation.framework/XPCServices/IMRemoteURLConnectionAgent.xpc/Contents/MacOS/IMRemoteURLConnectionAgent
+193,ito-tomoyo-2,/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal
+194,ito-tomoyo-2,/usr/libexec/mobileactivationd
+195,ito-tomoyo-2,/Applications/Stickies.app/Contents/MacOS/Stickies
+196,ito-tomoyo-2,/System/Library/CoreServices/WiFiAgent.app/Contents/MacOS/WiFiAgent
+197,ito-tomoyo-2,/usr/libexec/nsurlstoraged
+198,ito-tomoyo-2,/System/Library/PrivateFrameworks/CalendarNotification.framework/Versions/A/XPCServices/CalNCService.xpc/Contents/MacOS/CalNCService
+199,ito-tomoyo-2,/System/Library/CoreServices/talagent
+200,ito-tomoyo-2,/usr/sbin/wirelessproxd
+201,ito-tomoyo-2,/System/Library/CoreServices/CrashReporterSupportHelper server-init
+202,ito-tomoyo-2,/Applications/Numbers.app/Contents/MacOS/Numbers
+203,ito-tomoyo-2,/System/Library/CoreServices/NotificationCenter.app/Contents/MacOS/NotificationCenter
+204,ito-tomoyo-2,/usr/libexec/secinitd
+205,ito-tomoyo-2,/System/Library/CoreServices/APFSUserAgent
+206,ito-tomoyo-2,/System/Library/PrivateFrameworks/CalendarAgent.framework/Executables/CalendarAgent
+207,ito-tomoyo-2,/Applications/Visual Studio Code.app/Contents/MacOS/Electron
+208,ito-tomoyo-2,/System/Library/Frameworks/AddressBook.framework/Executables/ContactsAccountsService
+209,ito-tomoyo-2,/Applications/Slack.app/Contents/MacOS/Slack
+210,ito-tomoyo-2,/usr/libexec/networkserviceproxy
+211,ito-tomoyo-2,/System/Library/PrivateFrameworks/IMDPersistence.framework/XPCServices/IMDPersistenceAgent.xpc/Contents/MacOS/IMDPersistenceAgent
+212,ito-tomoyo-2,/System/Library/CoreServices/ControlStrip.app/Contents/MacOS/ControlStrip
+213,ito-tomoyo-2,/usr/libexec/rapportd
+214,ito-tomoyo-2,/usr/sbin/usernoted
+215,ito-tomoyo-2,/usr/libexec/routined LAUNCHED_BY_LAUNCHD
+216,ito-tomoyo-2,/System/Library/CoreServices/sharedfilelistd
+217,ito-tomoyo-2,/System/Library/Frameworks/ApplicationServices.framework/Frameworks/ATS.framework/Support/fontd
+218,ito-tomoyo-2,/System/Library/PrivateFrameworks/IMCore.framework/imagent.app/Contents/MacOS/imagent
+219,ito-tomoyo-2,/System/Library/Frameworks/Accounts.framework/Versions/A/Support/accountsd
+220,ito-tomoyo-2,/System/Library/PrivateFrameworks/IDS.framework/identityservicesd.app/Contents/MacOS/identityservicesd
+221,ito-tomoyo-2,/System/Library/PrivateFrameworks/TelephonyUtilities.framework/callservicesd
+222,ito-tomoyo-2,/usr/sbin/WirelessRadioManagerd
+223,ito-tomoyo-2,/usr/libexec/nsurlsessiond
+224,ito-tomoyo-2,/System/Library/PrivateFrameworks/TCC.framework/Resources/tccd
+225,ito-tomoyo-2,/System/Library/Frameworks/Security.framework/Versions/A/Resources/CloudKeychainProxy.bundle/Contents/MacOS/CloudKeychainProxy
+226,ito-tomoyo-2,/usr/libexec/pboard
+227,ito-tomoyo-2,/System/Library/PrivateFrameworks/CloudKitDaemon.framework/Support/cloudd
+228,ito-tomoyo-2,/usr/libexec/secd
+229,ito-tomoyo-2,/System/Library/CoreServices/backgroundtaskmanagementagent
+230,ito-tomoyo-2,/usr/libexec/trustd
+231,ito-tomoyo-2,/usr/libexec/lsd
+232,ito-tomoyo-2,/System/Library/Frameworks/CoreTelephony.framework/Support/CommCenter
+233,ito-tomoyo-2,/usr/sbin/distnoted agent
+234,ito-tomoyo-2,/usr/libexec/securityd_service
+235,ito-tomoyo-2,/System/Library/Frameworks/LocalAuthentication.framework/Support/coreauthd
+236,ito-tomoyo-2,/System/Library/PrivateFrameworks/FamilyControls.framework/Resources/parentalcontrolsd
+237,ito-tomoyo-2,/System/Library/Frameworks/GSS.framework/Helpers/GSSCred
+238,ito-tomoyo-2,/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdworker
+239,ito-tomoyo-2,/System/Library/CoreServices/Software Update.app/Contents/Resources/softwareupdate_download_service
+240,ito-tomoyo-2,/usr/libexec/periodic-wrapper daily
+241,ito-tomoyo-2,/usr/sbin/distnoted agent
+242,ito-tomoyo-2,/usr/sbin/cfprefsd agent
+243,ito-tomoyo-2,/System/Library/CoreServices/Software Update.app/Contents/Resources/suhelperd
+244,ito-tomoyo-2,/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/storeaccountd daemon
+245,ito-tomoyo-2,/System/Library/CoreServices/Software Update.app/Contents/Resources/softwareupdated
+246,ito-tomoyo-2,/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/storeassetd daemon
+247,ito-tomoyo-2,/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/storedownloadd daemon
+248,ito-tomoyo-2,/System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/commerced
+249,ito-tomoyo-2,/System/Library/PrivateFrameworks/CoreADI.framework/adid
+250,ito-tomoyo-2,/System/Library/PrivateFrameworks/AuthKit.framework/Versions/A/Support/akd
+251,ito-tomoyo-2,/usr/libexec/nfcd
+252,ito-tomoyo-2,/usr/libexec/findmydeviced
+253,ito-tomoyo-2,/usr/libexec/trustd
+254,ito-tomoyo-2,/usr/sbin/distnoted agent
+255,ito-tomoyo-2,/System/Library/PrivateFrameworks/AmbientDisplay.framework/Versions/A/XPCServices/com.apple.AmbientDisplayAgent.xpc/Contents/MacOS/com.apple.AmbientDisplayAgent
+256,ito-tomoyo-2,/System/Library/CoreServices/iconservicesagent runAsRoot
+257,ito-tomoyo-2,/usr/sbin/systemsoundserverd
+258,ito-tomoyo-2,/usr/libexec/biokitaggdd
+259,ito-tomoyo-2,/usr/libexec/biometrickitd
+260,ito-tomoyo-2,/System/Library/Frameworks/CryptoTokenKit.framework/ctkahp.bundle/Contents/MacOS/ctkahp
+261,ito-tomoyo-2,/System/Library/Frameworks/LocalAuthentication.framework/Support/coreauthd
+262,ito-tomoyo-2,/System/Library/PrivateFrameworks/AccountPolicy.framework/XPCServices/com.apple.AccountPolicyHelper.xpc/Contents/MacOS/com.apple.AccountPolicyHelper
+263,ito-tomoyo-2,/System/Library/PrivateFrameworks/PerformanceAnalysis.framework/Versions/A/XPCServices/com.apple.PerformanceAnalysis.animationperfd.xpc/Contents/MacOS/com.apple.PerformanceAnalysis.animationperfd
+264,ito-tomoyo-2,/usr/sbin/distnoted agent
+265,ito-tomoyo-2,/System/Library/PrivateFrameworks/ViewBridge.framework/Versions/A/XPCServices/ViewBridgeAuxiliary.xpc/Contents/MacOS/ViewBridgeAuxiliary
+266,ito-tomoyo-2,/System/Library/PrivateFrameworks/SystemAdministration.framework/XPCServices/writeconfig.xpc/Contents/MacOS/writeconfig
+267,ito-tomoyo-2,/System/Library/CoreServices/sharedfilelistd
+268,ito-tomoyo-2,/System/Library/Frameworks/CoreMediaIO.framework/Versions/A/XPCServices/com.apple.cmio.registerassistantservice.xpc/Contents/MacOS/com.apple.cmio.registerassistantservice
+269,ito-tomoyo-2,/System/Library/Frameworks/ApplicationServices.framework/Frameworks/ATS.framework/Support/fontd
+270,ito-tomoyo-2,/usr/libexec/bootinstalld
+271,ito-tomoyo-2,/usr/sbin/systemstats
+272,ito-tomoyo-2,/usr/libexec/sysmond
+273,ito-tomoyo-2,/System/Library/Frameworks/Security.framework/Versions/A/XPCServices/com.apple.CodeSigningHelper.xpc/Contents/MacOS/com.apple.CodeSigningHelper
+274,ito-tomoyo-2,/usr/libexec/colorsyncd
+275,ito-tomoyo-2,/usr/libexec/colorsync.displayservices
+276,ito-tomoyo-2,/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/CVMServer
+277,ito-tomoyo-2,/usr/libexec/TouchBarServer
+278,ito-tomoyo-2,/usr/libexec/secinitd
+279,ito-tomoyo-2,/usr/libexec/captiveagent
+280,ito-tomoyo-2,/System/Library/PrivateFrameworks/TCC.framework/Resources/tccd system
+281,ito-tomoyo-2,/usr/libexec/thermald
+282,ito-tomoyo-2,/System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper
+283,ito-tomoyo-2,/System/Library/Frameworks/AudioToolbox.framework/AudioComponentRegistrar
+284,ito-tomoyo-2,/usr/libexec/watchdogd
+285,ito-tomoyo-2,/System/Library/PrivateFrameworks/CoreAnalytics.framework/Support/analyticsd
+286,ito-tomoyo-2,/usr/libexec/smd
+287,ito-tomoyo-2,/usr/libexec/nsurlstoraged
+288,ito-tomoyo-2,/System/Library/CoreServices/SubmitDiagInfo server-init
+289,ito-tomoyo-2,/System/Library/PrivateFrameworks/BridgeOSSoftwareUpdate.framework/Support/bosUpdateProxy
+290,ito-tomoyo-2,/usr/local/sbin/zabbix_agentd: active checks #1 [idle 1 sec]
+291,ito-tomoyo-2,/usr/local/sbin/zabbix_agentd: listener #1 [waiting for connection]
+292,ito-tomoyo-2,/usr/local/sbin/zabbix_agentd: collector [idle 1 sec]
+293,ito-tomoyo-2,/System/Library/Frameworks/CoreMediaIO.framework/Resources/VDC.plugin/Contents/Resources/VDCAssistant
+294,ito-tomoyo-2,/usr/libexec/usbd
+295,ito-tomoyo-2,/usr/libexec/airportd
+296,ito-tomoyo-2,/usr/libexec/apfsd
+297,ito-tomoyo-2,/System/Library/CryptoTokenKit/com.apple.ifdreader.slotd/Contents/MacOS/com.apple.ifdreader
+298,ito-tomoyo-2,/usr/libexec/multiversed
+299,ito-tomoyo-2,/System/Library/PrivateFrameworks/CoreSymbolication.framework/coresymbolicationd
+300,ito-tomoyo-2,/usr/sbin/mDNSResponderHelper
+301,ito-tomoyo-2,/usr/sbin/mDNSResponder
+302,ito-tomoyo-2,/usr/libexec/lsd runAsRoot
+303,ito-tomoyo-2,/System/Library/PrivateFrameworks/WirelessDiagnostics.framework/Support/awdd
+304,ito-tomoyo-2,/usr/libexec/nsurlsessiond
+305,ito-tomoyo-2,/System/Library/Frameworks/CoreAudio.framework/Versions/A/XPCServices/com.apple.audio.DriverHelper.xpc/Contents/MacOS/com.apple.audio.DriverHelper
+306,ito-tomoyo-2,/usr/sbin/ocspd
+307,ito-tomoyo-2,/usr/libexec/mobileassetd
+308,ito-tomoyo-2,/usr/libexec/symptomsd
+309,ito-tomoyo-2,/System/Library/Frameworks/CryptoTokenKit.framework/ctkd
+310,ito-tomoyo-2,/usr/sbin/coreaudiod
+311,ito-tomoyo-2,/usr/libexec/trustd
+312,ito-tomoyo-2,/System/Library/Frameworks/PCSC.framework/Versions/A/XPCServices/com.apple.ctkpcscd.xpc/Contents/MacOS/com.apple.ctkpcscd
+313,ito-tomoyo-2,/usr/libexec/nehelper
+314,ito-tomoyo-2,/usr/libexec/syspolicyd
+315,ito-tomoyo-2,/System/Library/PrivateFrameworks/CoreDuetContext.framework/Resources/contextstored
+316,ito-tomoyo-2,/usr/libexec/taskgated
+317,ito-tomoyo-2,aslmanager
+318,ito-tomoyo-2,/usr/sbin/cfprefsd daemon
+319,ito-tomoyo-2,/System/Library/CoreServices/coreservicesd
+320,ito-tomoyo-2,/System/Library/Frameworks/Security.framework/Versions/A/XPCServices/authd.xpc/Contents/MacOS/authd
+321,ito-tomoyo-2,/usr/sbin/distnoted daemon
+322,ito-tomoyo-2,/usr/libexec/amfid
+323,ito-tomoyo-2,/usr/libexec/AirPlayXPCHelper
+324,ito-tomoyo-2,/usr/libexec/corebrightnessd
+325,ito-tomoyo-2,/usr/libexec/sandboxd
+326,ito-tomoyo-2,/usr/libexec/hidd
+327,ito-tomoyo-2,/usr/sbin/bluetoothd
+328,ito-tomoyo-2,/usr/sbin/KernelEventAgent
+329,ito-tomoyo-2,/System/Library/PrivateFrameworks/GenerationalStorage.framework/Versions/A/Support/revisiond
+330,ito-tomoyo-2,/System/Library/CoreServices/logind
+331,ito-tomoyo-2,/System/Library/CoreServices/loginwindow.app/Contents/MacOS/loginwindow console
+332,ito-tomoyo-2,/usr/libexec/PerfPowerServices
+333,ito-tomoyo-2,/usr/libexec/dasd
+334,ito-tomoyo-2,/usr/libexec/displaypolicyd
+335,ito-tomoyo-2,autofsd
+336,ito-tomoyo-2,/usr/libexec/locationd
+337,ito-tomoyo-2,/System/Library/PrivateFrameworks/MobileDevice.framework/Versions/A/Resources/usbmuxd
+338,ito-tomoyo-2,/usr/sbin/securityd
+339,ito-tomoyo-2,/usr/local/sbin/zabbix_agentd
+340,ito-tomoyo-2,/usr/libexec/timed
+341,ito-tomoyo-2,/System/Library/CoreServices/launchservicesd
+342,ito-tomoyo-2,/System/Library/PrivateFrameworks/Noticeboard.framework/Versions/A/Resources/nbstated
+343,ito-tomoyo-2,/Library/PrivilegedHelperTools/com.docker.vmnetd
+344,ito-tomoyo-2,/System/Library/PrivateFrameworks/ApplePushService.framework/apsd
+345,ito-tomoyo-2,/usr/libexec/coreduetd
+346,ito-tomoyo-2,/System/Library/CoreServices/backupd.bundle/Contents/Resources/backupd-helper
+347,ito-tomoyo-2,/usr/libexec/diskarbitrationd
+348,ito-tomoyo-2,/System/Library/CoreServices/iconservicesd
+349,ito-tomoyo-2,/Library/Application Support/Cylance/Desktop/CylanceSvc.app/Contents/MacOS/CylanceSvc
+350,ito-tomoyo-2,/usr/libexec/keybagd
+351,ito-tomoyo-2,/usr/libexec/logd
+352,ito-tomoyo-2,/System/Library/CoreServices/powerd.bundle/powerd
+353,ito-tomoyo-2,/usr/sbin/systemstats
+354,ito-tomoyo-2,/System/Library/CoreServices/appleeventsd
+355,ito-tomoyo-2,/private/var/swd/swd
+356,ito-tomoyo-2,/System/Library/PrivateFrameworks/MediaRemote.framework/Support/mediaremoted
+357,ito-tomoyo-2,/usr/local/jamf/bin/jamf launchDaemon
+358,ito-tomoyo-2,/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/FSEvents.framework/Versions/A/Support/fseventsd
+359,ito-tomoyo-2,/usr/libexec/kextd
+360,ito-tomoyo-2,/System/Library/PrivateFrameworks/Uninstall.framework/Resources/uninstalld
+361,ito-tomoyo-2,/usr/libexec/UserEventAgent (System)
+362,ito-tomoyo-2,/usr/sbin/syslogd
+363,ito-tomoyo-2,ps aux
+364,ito-tomoyo-2,(uname)
+365,ito-tomoyo-2,/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared
+366,ito-tomoyo-2,/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared
+367,ito-tomoyo-2,/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared
+368,ito-tomoyo-2,/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared
+369,ito-tomoyo-2,/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared
+370,ito-tomoyo-2,/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared
+371,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+372,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+373,ito-tomoyo-2,/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared
+374,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+375,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+376,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+377,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+378,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+379,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+380,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)
+381,ito-tomoyo-2,/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared
+382,ito-tomoyo-2,/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared
+383,ito-tomoyo-2,/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared
+384,ito-tomoyo-2,/System/Library/CoreServices/ReportCrash agent
+385,ito-tomoyo-2,/Applications/Notes.app/Contents/MacOS/Notes
+386,ito-tomoyo-2,/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/78.0.3904.97/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)

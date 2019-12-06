@@ -10,6 +10,44 @@ import sys
 import boto3
 from zipfile import ZipFile
 
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("-d", "--date", help="date YYYY/MM/DD")
+args = parser.parse_args()
+if args.date:
+    print(args.date)
+
+
+#------------#
+# 備忘録
+#------------#
+# ディレクトリ一覧取得
+#def listup_dirs(bucket='', prefix=''):
+#    dirs = list()
+#    response = s3.list_objects_v2(Bucket=bucket, Prefix=prefix, Delimiter='/')
+#    for content in response.get('CommonPrefixes'):
+#        dir = re.sub('^' + prefix, '', content.get('Prefix'))
+#        dirs.append(dir)
+#    return dirs
+
+ #   with open('stdout.csv', 'w') as out_file:
+ #       writer = csv.writer(out_file)
+ #       writer.writerow(('USER', 'PID', '%CPU', '%MEM', 'VSZ', 'RSS', 'TT', 'STAT', 'STARTED', 'TIME' 'COMMAND'))
+ #       writer.writerows(lines)
+
+
+# まるっとコピーして、Outputフォルダに配置
+#             shutil.copytree('./Template', './Output/Template')
+# Templateフォルダ名の変更
+#             os.rename('./Output/Template', './Output/' +file) 
+# print(len(columns)) # カラムが何行あるか計算してくれる」
+
+#boto3
+# https://boto3.amazonaws.com/v1/documentation/api/latest/guide/s3-example-download-file.html
+#    with open('FILE_NAME', 'wb') as f:
+#        s3.download_fileobj('BUCKET_NAME', 'OBJECT_NAME', f)
+
+
 #------------#
 # コマンドメモ
 #------------#
@@ -21,6 +59,8 @@ from zipfile import ZipFile
 # unzip
 # 現在のフォルダにコピーする（aws s3 cp  s3://freee-cylance-upload/process_list/yoshizawa-risa.local_85AED71282BE4FAE8D5A39FDE4AFB57B.zip .）
 # diff FILE_NAME ~/Downloads/DenySSH.csv 
+
+# S3に所定のフォルダを作るプログラムが必要な気がする。
 
 
 #0.S3の初期設定
@@ -47,70 +87,69 @@ def listup_objects(bucket='', prefix=''):
             break
     return objects
 
-# ディレクトリ一覧取得
-#def listup_dirs(bucket='', prefix=''):
-#    dirs = list()
-#    response = s3.list_objects_v2(Bucket=bucket, Prefix=prefix, Delimiter='/')
-#    for content in response.get('CommonPrefixes'):
-#        dir = re.sub('^' + prefix, '', content.get('Prefix'))
-#        dirs.append(dir)
-#    return dirs
-
 #1.s3 bucket name prefix (ファイル名を問い合わせる)(prefixとはディレクトリのこと)
 #2.filenamelist を取得する
-files = listup_objects(bucket=bucket, prefix="2019/11/20") #日付変える
+files = listup_objects(bucket=bucket, prefix=args.date) #日付変える
 print(files)
 
 #3.ファイルをダウンロードして保存する
+commands = []
 for file in files:
+    print("filename...{}".format(file))
+    if re.search('\.zip$', file) is None:
+        continue
+    s3.download_file(bucket, args.date+file, "./Process/FILE_NAME.zip") #https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.download_file
     print("download...{}".format(file))
-    s3.download_file(bucket, "2019/11/20" +file, "./Process/FILE_NAME") #https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.download_file
-    print(file)
-
-#boto3
-# https://boto3.amazonaws.com/v1/documentation/api/latest/guide/s3-example-download-file.html
-#    with open('FILE_NAME', 'wb') as f:
-#        s3.download_fileobj('BUCKET_NAME', 'OBJECT_NAME', f)
+    person_name = file.split('_')[0].strip('/')
+    print(person_name)
 
 #4.Zipファイル解凍する
-    with ZipFile("./Process/FILE_NAME") as existing_zip:
-# 展開されるディレクトリのパスを指定する。省略するとカレントディレクトリに解凍される。
-        existing_zip.extractall('')
+    os.chdir('./Process')
+    with ZipFile("./FILE_NAME.zip") as existing_zip:
+        existing_zip.extractall('') # 展開されるディレクトリのパスを指定する。省略するとカレントディレクトリに解凍される。
 
-# 行を分割する
-    with open('./Process/1/stdout', 'r') as in_file:
-        lines = in_file.read().splitlines()
-#   lines = (line.split(" ") 
-        for line in lines:
-#        print("{}".format(line)) #("{}\n".format(line))
-            columns = line.split()
-            if len(columns) > 10:  # print(len(columns)) # カラムが何行あるか計算してくれる
-                del(columns[0:10])
-# まるっとコピーして、Outputフォルダに配置
-                shutil.copytree('./Process/Template', './Process/Output/Template')
-# Templateフォルダ名の変更
-                os.rename('./Process/Output/Template', './Process/Output/' +file) 
-# sample.txt に書き込み
-                with open('./Process/Output/Template/sample.txt', 'w') as f:
-                    print(" ".join(columns), file=f)
-
-
- #   with open('stdout.csv', 'w') as out_file:
- #       writer = csv.writer(out_file)
- #       writer.writerow(('USER', 'PID', '%CPU', '%MEM', 'VSZ', 'RSS', 'TT', 'STAT', 'STARTED', 'TIME' 'COMMAND'))
- #       writer.writerows(lines)
-
-#------------#
 #5.sudo out の pc aws の process name など出力
-#------------#
+    with open('./1/stdout', 'r') as in_file: # 行を分割する
+        lines = in_file.read().splitlines()
+        with open('./Output/' + person_name +'.txt', 'w') as f: # .txt に書き込み
+#   lines = (line.split(" ") 
+            for line in lines:
+#        print("{}".format(line)) #("{}\n".format(line))
+                columns = line.split()
+                if len(columns) > 10:  # 10以下なら
+                    del(columns[0:10]) # 0から10を削除する
+                    line = ' '.join(columns) # colimsからlineに変える
+                    command = re.split(' -', line)[0] # ( -) を取り除くやつ追加する
+                    f.write("{},{}\n".format(person_name, command))
+                    commands.append({"Name":person_name, "Command":command})
+                    
+                #    print(command)
+
+# print(commands)
+df_commands = pd.DataFrame(commands)
+df_commands.to_csv('./commands.csv', header = True)
+
+
+#6.全ての結果をMargeする（'./Output/' + person_name +'.txt'）にあるデータをCSVなどにまとめて取り込む
+#command = open('../Practice/Marge.csv', 'a') #一個上の階層のMarge.csv
+#print(command)
+# csvで出力
+# command.to_csv('/Users/ito-tomoyo/Desktop/command.csv', header = True)
 
 
 
 #------------#
-#6.集計・分類
+#７.集計・分類
 #------------#
 
+#データの冒頭5行を取得
+#df.head()
 
+#データの末尾5行を取得
+#df.tail()
+
+#データの型の確認
+#df.info()
 
 
 #------------#
