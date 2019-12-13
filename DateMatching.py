@@ -4,6 +4,7 @@
 import csv
 import os
 import pandas as pd
+import codecs as cd
 import re
 import sys
 
@@ -56,10 +57,23 @@ df_jamf['jamf'] = 1
 # print(result_jamf)
 
 
+#✨NEW✨
+# 重複したMac Addressのチェック 
+df_cylance = pd.read_csv('/Users/ito-tomoyo/Desktop/cylance.csv', usecols=['名前', 'MACアドレス', 'ゾーン']) #cylance
+# df_cylance = df_cylance.T # 名前が横に９００カラムできた・・・失敗！
+# MACaddressを「,」区切りで分割
+df_cylance['MACアドレス'] = df_cylance['MACアドレス'].str.split(',', expand=True) #cylance
+df_cylance = df_cylance.pivot_table(values=['ゾーン'], index=['MACアドレス'], columns=['ゾーン'], aggfunc='sum')
+# csvで出力
+df_cylance.to_csv('/Users/ito-tomoyo/Desktop/Mac_Address_Check.csv', header = True) 
+# print(df_cylance)
 
 ### skysea (Mac)
 # skyseaの特定の列だけを読み込む
-df_skysea = pd.read_csv('/Users/ito-tomoyo/Desktop/skysea.csv', usecols=['コンピューター名', '端末機タイプ', 'MACアドレス 1', 'MACアドレス 2', 'MACアドレス 3', 'MACアドレス 4', 'MACアドレス 5', 'MACアドレス 6', 'MACアドレス 7', 'MACアドレス 8', 'MACアドレス 9']) #skysea
+# with codecs.open('/Users/ito-tomoyo/Desktop/skysea.csv',"r", "Shift-JIS", "ignore") as file:
+#    df_skysea = pd.read_table(file, delimiter=",")
+df_skysea = pd.read_csv('/Users/ito-tomoyo/Desktop/skysea.csv', encoding="shift-jis", usecols=['コンピューター名', '端末機タイプ', 'MACアドレス 1', 'MACアドレス 2', 'MACアドレス 3', 'MACアドレス 4', 'MACアドレス 5', 'MACアドレス 6', 'MACアドレス 7', 'MACアドレス 8', 'MACアドレス 9']) #skysea
+# df_skysea = pd.read_csv('/Users/ito-tomoyo/Desktop/skysea.csv', usecols=['コンピューター名', '端末機タイプ', 'MACアドレス 1', 'MACアドレス 2', 'MACアドレス 3', 'MACアドレス 4', 'MACアドレス 5', 'MACアドレス 6', 'MACアドレス 7', 'MACアドレス 8', 'MACアドレス 9']) #skysea
 # カラムの名前を変える関数を追加する
 df_skysea = df_skysea.rename(columns={'コンピューター名':'Computer Name', '端末機タイプ':'type', 'MACアドレス 1':'S_MAC Address 1', 'MACアドレス 2':'S_MAC Address 2', 'MACアドレス 3':'S_MAC Address 3', 'MACアドレス 4':'S_MAC Address 4', 'MACアドレス 5':'S_MAC Address 5', 'MACアドレス 6':'S_MAC Address 6', 'MACアドレス 7':'S_MAC Address 7', 'MACアドレス 8':'S_MAC Address 8', 'MACアドレス 9':'S_MAC Address 9'}) #skysea
 # 特定の列の特定の文字列を抽出
@@ -77,7 +91,7 @@ df_skysea_mac['skysea'] = 2
 
 ### skysea (Win)
 # skyseaの特定の列だけを読み込む
-df_skysea = pd.read_csv('/Users/ito-tomoyo/Desktop/skysea.csv', usecols=['コンピューター名', '端末機タイプ', 'MACアドレス 1', 'MACアドレス 2', 'MACアドレス 3', 'MACアドレス 4', 'MACアドレス 5', 'MACアドレス 6', 'MACアドレス 7', 'MACアドレス 8', 'MACアドレス 9']) #skysea
+df_skysea = pd.read_csv('/Users/ito-tomoyo/Desktop/skysea.csv', encoding="shift-jis", usecols=['コンピューター名', '端末機タイプ', 'MACアドレス 1', 'MACアドレス 2', 'MACアドレス 3', 'MACアドレス 4', 'MACアドレス 5', 'MACアドレス 6', 'MACアドレス 7', 'MACアドレス 8', 'MACアドレス 9']) #skysea
 # カラムの名前を変える関数を追加する
 df_skysea = df_skysea.rename(columns={'コンピューター名':'Computer Name', '端末機タイプ':'type', 'MACアドレス 1':'S_MAC Address 1', 'MACアドレス 2':'S_MAC Address 2', 'MACアドレス 3':'S_MAC Address 3', 'MACアドレス 4':'S_MAC Address 4', 'MACアドレス 5':'S_MAC Address 5', 'MACアドレス 6':'S_MAC Address 6', 'MACアドレス 7':'S_MAC Address 7', 'MACアドレス 8':'S_MAC Address 8', 'MACアドレス 9':'S_MAC Address 9'}) #skysea
 # 特定の列の特定の文字列を抽出
@@ -114,7 +128,7 @@ df_cylance_mac = exception_list(df_cylance_mac)
 # cylance カラムを追加する
 df_cylance_mac['cylance'] = 3
 # csvで出力
-# df_cylance_mac.to_csv('/Users/ito-tomoyo/Desktop/to_csv_cylance_mac.csv', header = True)
+df_cylance_mac.to_csv('/Users/ito-tomoyo/Desktop/to_csv_cylance_mac.csv', header = True)
 
 # cylanceの特定の列だけを読み込む
 df_cylance = pd.read_csv('/Users/ito-tomoyo/Desktop/cylance.csv', usecols=['名前', 'MACアドレス', 'ゾーン', '最終接続日', '最終ログインユーザー']) #cylance

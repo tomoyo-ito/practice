@@ -9,10 +9,12 @@ import re
 import sys
 import boto3
 from zipfile import ZipFile
+import datetime
+yesterday = datetime.datetime.now() - datetime.timedelta(days=1)
 
 import argparse
 parser = argparse.ArgumentParser()
-parser.add_argument("-d", "--date", help="date YYYY/MM/DD")
+parser.add_argument("-d", "--date", help="date YYYY/MM/DD", default=yesterday.strftime('%Y/%m/%d')) 
 args = parser.parse_args()
 if args.date:
     print(args.date)
@@ -47,6 +49,15 @@ if args.date:
 #    with open('FILE_NAME', 'wb') as f:
 #        s3.download_fileobj('BUCKET_NAME', 'OBJECT_NAME', f)
 
+
+#データの冒頭5行を取得
+#df_commands.head()
+
+#データの末尾5行を取得
+#df_commands.tail()
+
+#データの型の確認
+#df_commands.info()
 
 #------------#
 # コマンドメモ
@@ -125,31 +136,19 @@ for file in files:
                     
                 #    print(command)
 
-# print(commands)
+# csvに出力する
 df_commands = pd.DataFrame(commands)
 df_commands.to_csv('./commands.csv', header = True)
-
-
-#6.全ての結果をMargeする（'./Output/' + person_name +'.txt'）にあるデータをCSVなどにまとめて取り込む
-#command = open('../Practice/Marge.csv', 'a') #一個上の階層のMarge.csv
-#print(command)
-# csvで出力
-# command.to_csv('/Users/ito-tomoyo/Desktop/command.csv', header = True)
-
-
 
 #------------#
 #７.集計・分類
 #------------#
+#df_commands.pivot_table("Command",     #集計する変数の指定
+#    aggfunc="sum",  # 集計の仕方の指定
+#    fill_value=0,   # 該当する値がない場合の埋め値の指定
+    #rows="class",     # 行方向に残す変数の指定
+#    columns="Command")   #列方向に展開する変数の指定
 
-#データの冒頭5行を取得
-#df.head()
-
-#データの末尾5行を取得
-#df.tail()
-
-#データの型の確認
-#df.info()
 
 
 #------------#
