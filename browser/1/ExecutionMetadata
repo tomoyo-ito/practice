@@ -1,0 +1,49 @@
+{
+  "ExecutionRequest": {
+    "ExecutionId": "88E00CD5CF2242368A91A90AE34A82AA",
+    "Descriptor": {
+      "SchemaVersion": 1,
+      "Id": "4f6b8079-37b9-4105-a248-c7a627c65b26",
+      "PackageVersion": 1,
+      "Name": "Cylance - Browser History",
+      "Description": "Gathers Internet browser history databases for popular browsers including: Google Chrome, Mozilla Firefox, Microsoft Internet Explorer, Microsoft Edge, Opera, and Safari.\nApplicable arguments:\n'-browser Chrome': Collects Google Chrome browser history databases,\n'-browser Firefox': Collects Mozilla Firefox browser history databases,\n'-browser IE': Collects Microsoft Internet Explorer and Edge browser history databases,\n'-browser Opera': Collects Opera browser history databases,\n'-browser Safari': Collects Apple Safari browser history databases,\n'-browser All':  Collects history for all browsers",
+      "Examples": [
+        {
+          "InvocationString": "-browser Chrome",
+          "Description": "Chrome"
+        },
+        {
+          "InvocationString": "-browser Firefox",
+          "Description": "Firefox"
+        },
+        {
+          "InvocationString": "-browser IE",
+          "Description": "IE"
+        },
+        {
+          "InvocationString": "-browser Opera",
+          "Description": "Opera"
+        },
+        {
+          "InvocationString": "-browser Safari",
+          "Description": "Safari"
+        }
+      ],
+      "Python": null,
+      "CSharp": {
+        "ClassName": "Cylance.Foundations.Refract.RefractM.BrowserHistory",
+        "AssemblyName": "BrowserHistory"
+      },
+      "Cpp": null,
+      "PackageInfoCase": 8
+    },
+    "Arguments": [
+      "-browser All"
+    ],
+    "ExecutionIndex": 1
+  },
+  "StartTime": "2019-11-22T02:56:36:823Z",
+  "EndTime": "2019-11-22T02:56:39:460Z",
+  "ExitCode": 0,
+  "ErrorMessage": null
+}

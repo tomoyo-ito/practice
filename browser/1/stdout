@@ -1,0 +1,36 @@
+<returnValue> : (0)
+<class_name> : (Cylance.Foundations.Refract.RefractM.BrowserHistory)
+<package_path> : (/Library/Application Support/Cylance/Optics/Refract/Packages/4f6b8079-37b9-4105-a248-c7a627c65b26/Contents/BrowserHistory.dll)
+<out> : (/Library/Application Support/Cylance/Optics/Refract/Results/88E00CD5CF2242368A91A90AE34A82AA/1)
+<print_message> : (true)
+<browser> : (All)
+Cylance.Foundations.Refract.RefractM.BaseFileCopyCapability: <returnValue> : <0>
+Cylance.Foundations.Refract.RefractM.BaseFileCopyCapability: <class_name> : <Cylance.Foundations.Refract.RefractM.BrowserHistory>
+Cylance.Foundations.Refract.RefractM.BaseFileCopyCapability: <package_path> : </Library/Application Support/Cylance/Optics/Refract/Packages/4f6b8079-37b9-4105-a248-c7a627c65b26/Contents/BrowserHistory.dll>
+Cylance.Foundations.Refract.RefractM.BaseFileCopyCapability: <out> : </Library/Application Support/Cylance/Optics/Refract/Results/88E00CD5CF2242368A91A90AE34A82AA/1/Chrome>
+Cylance.Foundations.Refract.RefractM.BaseFileCopyCapability: <print_message> : <true>
+Cylance.Foundations.Refract.RefractM.BaseFileCopyCapability: <browser> : <All>
+Cylance.Foundations.Refract.RefractM.BaseFileCopyCapability: <returnValue> : <0>
+Cylance.Foundations.Refract.RefractM.BaseFileCopyCapability: <class_name> : <Cylance.Foundations.Refract.RefractM.BrowserHistory>
+Cylance.Foundations.Refract.RefractM.BaseFileCopyCapability: <package_path> : </Library/Application Support/Cylance/Optics/Refract/Packages/4f6b8079-37b9-4105-a248-c7a627c65b26/Contents/BrowserHistory.dll>
+Cylance.Foundations.Refract.RefractM.BaseFileCopyCapability: <out> : </Library/Application Support/Cylance/Optics/Refract/Results/88E00CD5CF2242368A91A90AE34A82AA/1/Firefox>
+Cylance.Foundations.Refract.RefractM.BaseFileCopyCapability: <print_message> : <true>
+Cylance.Foundations.Refract.RefractM.BaseFileCopyCapability: <browser> : <All>
+Cylance.Foundations.Refract.RefractM.BaseFileCopyCapability: <returnValue> : <0>
+Cylance.Foundations.Refract.RefractM.BaseFileCopyCapability: <class_name> : <Cylance.Foundations.Refract.RefractM.BrowserHistory>
+Cylance.Foundations.Refract.RefractM.BaseFileCopyCapability: <package_path> : </Library/Application Support/Cylance/Optics/Refract/Packages/4f6b8079-37b9-4105-a248-c7a627c65b26/Contents/BrowserHistory.dll>
+Cylance.Foundations.Refract.RefractM.BaseFileCopyCapability: <out> : </Library/Application Support/Cylance/Optics/Refract/Results/88E00CD5CF2242368A91A90AE34A82AA/1/IE>
+Cylance.Foundations.Refract.RefractM.BaseFileCopyCapability: <print_message> : <true>
+Cylance.Foundations.Refract.RefractM.BaseFileCopyCapability: <browser> : <All>
+Cylance.Foundations.Refract.RefractM.BaseFileCopyCapability: <returnValue> : <0>
+Cylance.Foundations.Refract.RefractM.BaseFileCopyCapability: <class_name> : <Cylance.Foundations.Refract.RefractM.BrowserHistory>
+Cylance.Foundations.Refract.RefractM.BaseFileCopyCapability: <package_path> : </Library/Application Support/Cylance/Optics/Refract/Packages/4f6b8079-37b9-4105-a248-c7a627c65b26/Contents/BrowserHistory.dll>
+Cylance.Foundations.Refract.RefractM.BaseFileCopyCapability: <out> : </Library/Application Support/Cylance/Optics/Refract/Results/88E00CD5CF2242368A91A90AE34A82AA/1/Opera>
+Cylance.Foundations.Refract.RefractM.BaseFileCopyCapability: <print_message> : <true>
+Cylance.Foundations.Refract.RefractM.BaseFileCopyCapability: <browser> : <All>
+Cylance.Foundations.Refract.RefractM.BaseFileCopyCapability: <returnValue> : <0>
+Cylance.Foundations.Refract.RefractM.BaseFileCopyCapability: <class_name> : <Cylance.Foundations.Refract.RefractM.BrowserHistory>
+Cylance.Foundations.Refract.RefractM.BaseFileCopyCapability: <package_path> : </Library/Application Support/Cylance/Optics/Refract/Packages/4f6b8079-37b9-4105-a248-c7a627c65b26/Contents/BrowserHistory.dll>
+Cylance.Foundations.Refract.RefractM.BaseFileCopyCapability: <out> : </Library/Application Support/Cylance/Optics/Refract/Results/88E00CD5CF2242368A91A90AE34A82AA/1/Safari>
+Cylance.Foundations.Refract.RefractM.BaseFileCopyCapability: <print_message> : <true>
+Cylance.Foundations.Refract.RefractM.BaseFileCopyCapability: <browser> : <All>

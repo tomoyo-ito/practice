@@ -105,6 +105,9 @@ print(files)
 
 #3.ファイルをダウンロードして保存する
 commands = []
+users = {}
+
+totals = []
 for file in files:
     print("filename...{}".format(file))
     if re.search('\.zip$', file) is None:
@@ -122,6 +125,7 @@ for file in files:
 #5.sudo out の pc aws の process name など出力
     with open('./1/stdout', 'r') as in_file: # 行を分割する
         lines = in_file.read().splitlines()
+        counts = {}
         with open('./Output/' + person_name +'.txt', 'w') as f: # .txt に書き込み
 #   lines = (line.split(" ") 
             for line in lines:
@@ -133,12 +137,40 @@ for file in files:
                     command = re.split(' -', line)[0] # ( -) を取り除くやつ追加する
                     f.write("{},{}\n".format(person_name, command))
                     commands.append({"Name":person_name, "Command":command})
-                    
-                #    print(command)
+                    if counts.get(command) == None:
+                        counts[command] = 0
+                    counts[command] += 1
+                    #l_nested = [{'name': 'Alice', 'age': 25, 'id': {'x': 2, 'y': 8}},
+                    #{'name': 'Bob', 'id': {'x': 10, 'y': 4}}]
+                    #if counts.get(command) == None:
+                    #    counts[command] = {}
+                    #if counts[command].get(person_name) == None:
+                    #   counts[command][person_name] = 0
+                    #counts[command][person_name] += 1
 
-# csvに出力する
+                    #if counts.get(command):
+                    #    counts[command]+= 1
+                    #else:
+                    #    counts[command]= 1
+                    #if users.get(command)== None:
+                    #    users[command]= []
+                    #users[command].append(person_name)
+                #    print(command)
+        totals.append({"Name":person_name,"Command":counts})
+
+pd.set_option('display.max_columns', 10)
+print(pd.DataFrame(totals))
+print(pd.io.json.json_normalize(totals))
+
+# processごとのCOUNT
 df_commands = pd.DataFrame(commands)
 df_commands.to_csv('./commands.csv', header = True)
+#df_totals = pd.DataFrame(totals, index=['i',])
+#print(df_totals.describe())
+
+# processごとのCOUNT
+# df_users = pd.DataFrame(users, index=['i',])
+# print(df_users.describe())
 
 #------------#
 #７.集計・分類
