@@ -9,6 +9,7 @@ import re
 import sys
 import boto3
 from zipfile import ZipFile
+import numpy as np
 import datetime
 yesterday = datetime.datetime.now() - datetime.timedelta(days=1)
 
@@ -100,25 +101,24 @@ def listup_objects(bucket='', prefix=''):
 
 #1.s3 bucket name prefix (ファイル名を問い合わせる)(prefixとはディレクトリのこと)
 #2.filenamelist を取得する
-files = listup_objects(bucket=bucket, prefix=args.date) #日付変える
+files = listup_objects(bucket=bucket, prefix='process_list/' + args.date) #日付変える
 print(files)
 
 #3.ファイルをダウンロードして保存する
 commands = []
 users = {}
-
 totals = []
+os.chdir('./Process') #Processフォルダに移動
 for file in files:
     print("filename...{}".format(file))
     if re.search('\.zip$', file) is None:
         continue
-    s3.download_file(bucket, args.date+file, "./Process/FILE_NAME.zip") #https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.download_file
+    s3.download_file(bucket, 'process_list/' + args.date + file, "./FILE_NAME.zip") #https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.download_file
     print("download...{}".format(file))
     person_name = file.split('_')[0].strip('/')
     print(person_name)
 
 #4.Zipファイル解凍する
-    os.chdir('./Process')
     with ZipFile("./FILE_NAME.zip") as existing_zip:
         existing_zip.extractall('') # 展開されるディレクトリのパスを指定する。省略するとカレントディレクトリに解凍される。
 
@@ -157,14 +157,40 @@ for file in files:
                     #users[command].append(person_name)
                 #    print(command)
         totals.append({"Name":person_name,"Command":counts})
+# ダウンロードした、ファイルを削除する
+    os.remove('FILE_NAME.zip') 
+# ダウンロードした、ファイルごとディレクトリを削除する
+    shutil.rmtree("1") 
 
-pd.set_option('display.max_columns', 10)
-print(pd.DataFrame(totals))
-print(pd.io.json.json_normalize(totals))
+pd.set_option('display.max_columns', 0)
+pd.set_option('display.max_rows', 0)
+# print(pd.DataFrame(totals))
+df = pd.io.json.json_normalize(totals) #辞書のリストをDataFrameに変換
+
+
+#1 df = df.rename(columns=lambda s: s.replace('TIME COMMAND', '') ) #ラムダで置き換えたらええやんと思った・・・
+#2 df = df.astype('int64') # pandas.DataFrame全体のデータ型dtypeを一括で変更 
+# flate64: could not convert string to float: 'DEP-FVFY5006JK7L'
+# int64: Cannot convert non-finite values (NA or inf) to integer
+#3 df['TIME COMMAND'] = pd.to_numeric(df['TIME COMMAND'], error='coerce') #文字列をNaNに変えてくれる
+
+df = df.fillna(0) #欠損ちNaNを0に置き換え
+df = df.rename(columns=lambda s: s.replace('Command.', '') ) #'Command.'の文字列を削除
+df = df.drop('TIME COMMAND', axis=1) #row=0,column=1    #"['TIME COMMAND'] not found in axis"ってエラーが解消できなかった
+df = df.set_index('Name') #row=0,column=1   
+#df = df.drop('Name', axis=1) #row=0,column=1   
+#print(df.max())
+df.info() #行ごとのtypeを教えてくれる
+#print(df.dtypes)
+df.apply(pd.to_numeric, errors = 'coerce') # change the type of object
+print(df.idxmax()) #列ごとのMAX
+df.loc[:, 'id']
+df.to_csv('./all_commands.csv', header = True)
+print(df.merge(df.idxmax(), df.max()))
 
 # processごとのCOUNT
-df_commands = pd.DataFrame(commands)
-df_commands.to_csv('./commands.csv', header = True)
+#df_commands = pd.DataFrame(commands)
+#df_commands.to_csv('./commands.csv', header = True)
 #df_totals = pd.DataFrame(totals, index=['i',])
 #print(df_totals.describe())
 
@@ -181,24 +207,6 @@ df_commands.to_csv('./commands.csv', header = True)
     #rows="class",     # 行方向に残す変数の指定
 #    columns="Command")   #列方向に展開する変数の指定
 
-
-
-#------------#
-#7.ダウンロードしたファイル削除
-#------------#
-# ダウンロードしたファイルを保存するためのフォルダパ スを指定する 
-#path = 'FILE_NAME'
-# ダウンロードした、ファイルを削除する
-#os.remove(path) 
-# ダウンロードした、ファイルごとディレクトリを削除する
-#shutil.rmtree("1") 
-
-# 同じフォルダ作成する
-# os.makedirs(path, exist_ok=True) 
-# ディレクトリの存在有無を確認
-# print(os.path.isdir(path))
-
- # loop 終わり
 
 #------------#
 #8.結果をCSVで出力（未来的にはElasticsearchで表示させたい）
