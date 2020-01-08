@@ -176,17 +176,19 @@ df = pd.io.json.json_normalize(totals) #辞書のリストをDataFrameに変換
 
 df = df.fillna(0) #欠損ちNaNを0に置き換え
 df = df.rename(columns=lambda s: s.replace('Command.', '') ) #'Command.'の文字列を削除
-df = df.drop('TIME COMMAND', axis=1) #row=0,column=1    #"['TIME COMMAND'] not found in axis"ってエラーが解消できなかった
-df = df.set_index('Name') #row=0,column=1   
-#df = df.drop('Name', axis=1) #row=0,column=1   
-#print(df.max())
-df.info() #行ごとのtypeを教えてくれる
-#print(df.dtypes)
-df.apply(pd.to_numeric, errors = 'coerce') # change the type of object
-print(df.idxmax()) #列ごとのMAX
-df.loc[:, 'id']
+df = df.drop('TIME COMMAND', axis=1) #row=0,column=1  TIME COMMANDの文字を削除
+df = df.set_index('Name', append=True) #row=0,column=1 append=True 入れると、o123みたいなIndexつく  
+# df = df.drop('Name', axis=1) #row=0,column=1   
+df.info() #タイプをチェック
+# print(df.dtypes) #行ごとのtypeを教えてくれる
+# print(df.astype(float))
+# df.apply(pd.to_numeric, errors = 'coerce') # change the type of object
+# print(df.idxmax()) #列ごとのMAX
+# df.loc[:, 'id'] #行、列をラベルで指定(idは無い)
 df.to_csv('./all_commands.csv', header = True)
-print(df.merge(df.idxmax(), df.max()))
+print(df.max)
+print(df.idxmax)
+print(df.merge(df.idxmax(), df.max())) # ValueError: Cannot merge a Series without a name
 
 # processごとのCOUNT
 #df_commands = pd.DataFrame(commands)
