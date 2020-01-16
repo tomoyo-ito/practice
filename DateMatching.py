@@ -34,6 +34,14 @@ def normalize(df):
         df['Last login user'] = df['Last login user'].str.replace(' \(\d\)', '') 
     return df
 
+def Ignore_Location(df): #stafflistにだけ読み込ませる
+    df.drop(df[(df['type'] == '業務委託') & (df['Location'] == '新宿')].index, inplace=True)
+    df.drop(df[(df['type'] == '業務委託') & (df['Location'] == '九州')].index, inplace=True)
+    df.drop(df[(df['type'] == '業務委託') & (df['Location'] == '札幌')].index, inplace=True)
+    df.drop(df[(df['type'] == '業務委託') & (df['Location'] == '広島')].index, inplace=True)
+    df.drop(df[(df['Location'] == 'リモート')].index, inplace=True)
+    df.drop(df[(df['Status'] == '休職')].index, inplace=True)
+    
 
 # Pandasのカラムの設定（全てのPandas関数に適応される）
 pd.set_option('display.max_rows', 1000)
@@ -57,10 +65,8 @@ df_jamf['jamf'] = 1
 # print(result_jamf)
 
 
-#✨NEW✨
 # 重複したMac Addressのチェック 
 df_cylance = pd.read_csv('/Users/ito-tomoyo/Desktop/cylance.csv', usecols=['名前', 'MACアドレス', 'ゾーン']) #cylance
-# df_cylance = df_cylance.T # 名前が横に９００カラムできた・・・失敗！
 # MACaddressを「,」区切りで分割
 df_cylance['MACアドレス'] = df_cylance['MACアドレス'].str.split(',', expand=True) #cylance
 df_cylance = df_cylance.pivot_table(values=['ゾーン'], index=['MACアドレス'], columns=['ゾーン'], aggfunc='sum')
@@ -105,7 +111,7 @@ df_skysea_win['skysea'] = 2
 ### Skysea(Mac&Win) (Win)は '名前' を '最終ログインユーザー'に置き換えている
 skysea_marge = pd.concat([df_skysea_mac, df_skysea_win], ignore_index=True, sort = True)
 # macのComputer NameをWINに合わせて15文字までに切っちゃう
-skysea_marge['Computer Name'] = skysea_marge['Computer Name'].str.slice(0,15)
+skysea_marge['Computer Name'] = skysea_marge['Computer Name'].str.slice(0,13)
 # csvで出力
 # skysea_marge.to_csv('/Users/ito-tomoyo/Desktop/to_csv_skysea_marge.csv', header = True)
 
@@ -156,9 +162,9 @@ cylance_marge = pd.concat([df_cylance_mac, df_cylance_win], ignore_index=True, s
 cylance_marge.to_csv('/Users/ito-tomoyo/Desktop/to_csv_cylance_marge2.csv', header = True)
 
 # staff listの特定の列を読み込む
-df_stafflist = pd.read_csv('/Users/ito-tomoyo/Desktop/stafflist.csv', header=1, usecols=['Name', '部署', '雇用形態']) #staff list
+df_stafflist = pd.read_csv('/Users/ito-tomoyo/Desktop/stafflist.csv', header=1, usecols=['Name', '部署', '雇用形態', '勤務地', '就業状況']) #staff list
 # カラムの名前を変える関数を追加する
-df_stafflist = df_stafflist.rename(columns={'Name':'Computer Name', '部署':'Department', '雇用形態':'type'}) #staff list
+df_stafflist = df_stafflist.rename(columns={'Name':'Computer Name', '部署':'Department', '雇用形態':'type', '勤務地':'Location', '就業状況':'Status'}) #staff list
 # スペース区切りで列を分割する
 df_stafflist_split  = df_stafflist['Computer Name'].str.split('\s', expand=True)
 # catを使って列を一つに
@@ -166,6 +172,8 @@ df_stafflist['Computer Name'] = (df_stafflist_split[1].str.cat(df_stafflist_spli
 #名前が間違っている人の置き換え
 df_stafflist = normalize(df_stafflist)
 df_stafflist = exception_list(df_stafflist)
+df_Location = Ignore_Location(df_stafflist)
+
 #対象外Listに基づき削除 
 with open('/Users/ito-tomoyo/Practice/IgnoreList.csv',  newline='') as z:
     dataReader = csv.reader(z)
@@ -174,11 +182,11 @@ with open('/Users/ito-tomoyo/Practice/IgnoreList.csv',  newline='') as z:
          # print("{}".format(row[0]))
 
 # WINはLastLoginUserのComputer Nameをにしているので、15文字までに切っちゃう）
-df_stafflist['Computer Name'] = df_stafflist['Computer Name'].str.slice(0,15)
+df_stafflist['Computer Name'] = df_stafflist['Computer Name'].str.slice(0,13)
 # staff list カラムを追加する
 df_stafflist['staff list'] = 4
 
-# print(df_stafflist
+# print(df_stafflist)
 #　csvで出力
 df_stafflist.to_csv('/Users/ito-tomoyo/Desktop/stafflist_update.csv', header = True)
 
@@ -190,8 +198,8 @@ df_stafflist.to_csv('/Users/ito-tomoyo/Desktop/stafflist_update.csv', header = T
 # Cylanceの NameとLast loginが同じでないものを確認する
 cylance_marge['check'] = (cylance_marge['Computer Name'] == cylance_marge['Last login user'])
 # macのComputer NameをWINに合わせて15文字までに切っちゃう
-cylance_marge['Computer Name'] = cylance_marge['Computer Name'].str.slice(0,15)
-cylance_marge['Last login user'] = cylance_marge['Last login user'].str.slice(0,15)
+cylance_marge['Computer Name'] = cylance_marge['Computer Name'].str.slice(0,13)
+cylance_marge['Last login user'] = cylance_marge['Last login user'].str.slice(0,13)
 #　csvで出力
 cylance_marge.to_csv('/Users/ito-tomoyo/Desktop/check.csv', header = True)
 # 重複した行の数をカウント
@@ -200,7 +208,7 @@ cylance_marge.to_csv('/Users/ito-tomoyo/Desktop/check.csv', header = True)
 # stafflistにあってskyseaにないList 💫
 skysea_add_target = df_stafflist.merge(skysea_marge, left_on='Computer Name', right_on='Computer Name', how='left')
 # sort
-skysea_add_target  = skysea_add_target.sort_values('Computer Name')
+skysea_add_target = skysea_add_target.sort_values('Computer Name')
 # csvで出力
 skysea_add_target.to_csv('/Users/ito-tomoyo/Desktop/skysea_add_target.csv', header = True)
 # print(skysea_add_target.duplicated(subset='Computer Name'))
@@ -214,16 +222,16 @@ cylance_add_target  = cylance_add_target.sort_values('Computer Name')
 # cylance_add_target = df_stafflist.concat([df_stafflist['Computer Name'],cylance_marge['Computer Name']]).drop_duplicates(keep=False)
 # csvで出力
 cylance_add_target.to_csv('/Users/ito-tomoyo/Desktop/cylance_add_target.csv', header = True)
-# ある特定の文字を含む直を削除する💫💫
-# print(cylance_add_target.query('cylance != 3.0'))
 
 
-# CylanceにあってJamfにない 💫
+# skysea_add_targetにあってcylance_add_targetにないList
+Comparison = skysea_add_target.merge(cylance_add_target, left_on='Computer Name', right_on='Computer Name', how='left')
+# sort
+Comparison  = Comparison.sort_values('Computer Name')
+# csvで出力
+cylance_add_target.to_csv('/Users/ito-tomoyo/Desktop/Comparison.csv', header = True)
 
 
-# JamfにあってCylanceにない 💫
-
-
-# skysea(mac)にあってstaff listにないもの。（skyseaは名前苗字の順番ではない場合があってそれが入ってしまう）
-# 
+# CylanceにあってJamfにない 
+# JamfにあってCylanceにない 
 

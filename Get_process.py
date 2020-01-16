@@ -179,16 +179,27 @@ df = df.rename(columns=lambda s: s.replace('Command.', '') ) #'Command.'の文�
 df = df.drop('TIME COMMAND', axis=1) #row=0,column=1  TIME COMMANDの文字を削除
 df = df.set_index('Name', append=True) #row=0,column=1 append=True 入れると、o123みたいなIndexつく  
 # df = df.drop('Name', axis=1) #row=0,column=1   
-df.info() #タイプをチェック
+# df.info() #タイプをチェック
 # print(df.dtypes) #行ごとのtypeを教えてくれる
 # print(df.astype(float))
 # df.apply(pd.to_numeric, errors = 'coerce') # change the type of object
 # print(df.idxmax()) #列ごとのMAX
 # df.loc[:, 'id'] #行、列をラベルで指定(idは無い)
 df.to_csv('./all_commands.csv', header = True)
-print(df.max)
-print(df.idxmax)
-print(df.merge(df.idxmax(), df.max())) # ValueError: Cannot merge a Series without a name
+
+max2 = pd.DataFrame(df.max()).reset_index()
+#max2 = max2.rename(columns={'0': 'Times'})
+#print(max2)
+idxmax = pd.DataFrame(df.idxmax()).reset_index()
+print(idxmax)
+#print(pd.merge(idxmax, max2, on='index')) 
+merge = pd.merge(idxmax, max2, on='index')
+merge = merge.rename(columns={'0_x': 'Name', '0_y': 'Times'})
+df.info()
+#merge['Name'] = merge['Name'].str.replace(r'\d,', '') 
+#merge['Name'] = merge['Name'].str.replace(r'\)$', '') 
+print(merge)
+merge.to_csv('/Users/ito-tomoyo/Desktop/get_merge_process.csv', header = True)
 
 # processごとのCOUNT
 #df_commands = pd.DataFrame(commands)
